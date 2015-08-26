@@ -1,0 +1,219 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- ====================================================================== -->
+    <!-- Bundles parent project configuration
+
+        Contains:
+        - Initial configuration for OSGi manifest generation
+        - Shared dependencies for all OSGi projects
+        - Code quality check profile configuration
+
+        Parent project for all OSGi projects.
+        Add here only dependencies that should be shared across ALL OSGi projects
+        e.g. CQ, Sling, JCR APIs
+
+    -->
+    <!-- ====================================================================== -->
+
+    <parent>
+        <groupId>com.annamukhina.practice</groupId>
+        <artifactId>final-exam</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>finalexam-bundles</artifactId>
+    <packaging>pom</packaging>
+    <name>Final exam - OSGi bundles parent</name>
+    <description>Parent project for all OSGi bundles for Final exam</description>
+
+    <modules>
+        <module>com.annamukhina.practice.core</module>
+        <module>com.annamukhina.practice.components</module>
+    </modules>
+
+    <properties>
+        <bundle.activator></bundle.activator>
+        <bundle.export></bundle.export>
+        <bundle.import>*;resolution:=required</bundle.import>
+        <bundle.embed></bundle.embed>
+        <bundle.private></bundle.private>
+        <bundle.exclude.imports></bundle.exclude.imports>
+        <bundle.exclude.exports></bundle.exclude.exports>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.compendium</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.day.cq.wcm</groupId>
+            <artifactId>cq-wcm-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.day.cq.wcm</groupId>
+            <artifactId>cq-wcm-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.day.cq.wcm</groupId>
+            <artifactId>cq-wcm-commons</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.day.cq.wcm</groupId>
+            <artifactId>cq-wcm-foundation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.day.cq</groupId>
+            <artifactId>cq-commons</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.sling</groupId>
+            <artifactId>org.apache.sling.api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.adobe.granite</groupId>
+            <artifactId>com.adobe.granite.xssprotection</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.cognifide.slice</groupId>
+            <artifactId>slice-core-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.cognifide.slice</groupId>
+            <artifactId>slice-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.cognifide.slice</groupId>
+            <artifactId>slice-mapper</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.cognifide.slice</groupId>
+            <artifactId>slice-mapper-api</artifactId>
+        </dependency>
+<!-- commented out for slice 4.* and higher
+        <dependency>
+            <groupId>com.cognifide.slice</groupId>
+            <artifactId>slice-validation-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.cognifide.slice</groupId>
+            <artifactId>slice-validation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.cognifide.slice-addon</groupId>
+            <artifactId>slice-cq56-taglib</artifactId>
+        </dependency>
+-->
+        <dependency>
+            <groupId>com.cognifide.slice-addon</groupId>
+            <artifactId>slice-aem60</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-module-junit4</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-api-mockito</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.scr.annotations</artifactId>
+        </dependency>
+    </dependencies>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Build-Info>${build.info}</Build-Info>
+                        <Export-Package>${bundle.export}</Export-Package>
+                        <Private-Package>${bundle.private}</Private-Package>
+                        <Import-Package>${bundle.import}</Import-Package>
+                        <Embed-Dependency>${bundle.embed}</Embed-Dependency>
+                        <Excluded-Imports>${bundle.exclude.imports}</Excluded-Imports>
+                        <Excluded-Exports>${bundle.exclude.exports}</Excluded-Exports>
+                        <Bundle-Activator>${bundle.activator}</Bundle-Activator>
+                    </instructions>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.sling</groupId>
+                <artifactId>maven-sling-plugin</artifactId>
+                <configuration>
+                    <slingUrl>${sling.server}/crx/repository/crx.default</slingUrl>
+                    <slingUrlSuffix>${sling.bundles.install.path}</slingUrlSuffix>
+                    <usePut>true</usePut>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-scr-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>generate-scr-descriptor</id>
+                        <goals>
+                            <goal>scr</goal>
+                        </goals>
+                        <configuration>
+                            <properties>
+                                <service.vendor>${vendor.name}</service.vendor>
+                            </properties>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>installBundle</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.sling</groupId>
+                        <artifactId>maven-sling-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>install-bundle</id>
+                                <goals>
+                                    <goal>install</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>

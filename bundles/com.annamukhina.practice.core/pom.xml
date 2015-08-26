@@ -1,0 +1,25 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.annamukhina.practice</groupId>
+        <artifactId>finalexam-bundles</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>com.annamukhina.practice.core</artifactId>
+    <packaging>bundle</packaging>
+    <name>Final exam - Core Bundle</name>
+    <description>Core project for Final exam bundles. Contains shared code.</description>
+
+    <properties>
+        <bundle.export>
+            com.annamukhina.practice.core.bundle,
+            com.annamukhina.practice.core.configuration
+        </bundle.export>
+        <bundle.private>
+            com.annamukhina.practice.core.configuration.impl,
+            com.annamukhina.practice.core.servlet
+        </bundle.private>
+        <bundle.activator>com.annamukhina.practice.core.bundle.Activator</bundle.activator>
+    </properties>
+</project>

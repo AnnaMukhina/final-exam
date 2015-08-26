@@ -1,0 +1,21 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.annamukhina.practice</groupId>
+        <artifactId>finalexam-bundles</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>com.annamukhina.practice.components</artifactId>
+    <packaging>bundle</packaging>
+    <name>Final exam - Components Bundle</name>
+    <description>OSGi bundle for Final exam components code and Slice models</description>
+
+    <properties>
+        <bundle.export>
+            com.annamukhina.practice.components.model
+        </bundle.export>
+        <bundle.private>
+        </bundle.private>
+    </properties>
+</project>
