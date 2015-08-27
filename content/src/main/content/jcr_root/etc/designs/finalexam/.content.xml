@@ -5,9 +5,20 @@
     <clientlib-bootstrap/>
     <clientlib-ie/>
     <favicon.ico/>
+
     <jcr:content
-        cq:doctype="html_5"
-        jcr:primaryType="nt:unstructured"
-        jcr:title="Final exam Demo Design"
-        sling:resourceType="wcm/core/components/designer"/>
+            cq:doctype="html_5"
+            jcr:primaryType="nt:unstructured"
+            jcr:title="Final exam Demo Design"
+            sling:resourceType="wcm/core/components/designer">
+        <samplepage jcr:primaryType="nt:unstructured">
+            <par
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="foundation/components/parsys"
+                    components="[group:finalexam]">
+                <section jcr:primaryType="nt:unstructured"/>
+            </par>
+        </samplepage>
+    </jcr:content>
+
 </jcr:root>
