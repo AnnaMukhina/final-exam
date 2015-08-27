@@ -41,8 +41,6 @@ public class Activator implements BundleActivator {
         logger.debug("Starting injector runner");
         injectorRunner.start();
         logger.debug("Leaving BundleActivator.start");
-
-        Events events = new Events();
     }
 
     @Override

@@ -7,6 +7,9 @@
 
 <div class="row">
     <div class="col-sm-5 col-md-6 col-lg-8">
+        <div class="eventTable">
+            <jsp:include page="/bin/test/events" />
+        </div>
         <form action="" onsubmit="validForm(this)" method="post" id="form">
             Date:<br>
             <input type=text name=date><br>
