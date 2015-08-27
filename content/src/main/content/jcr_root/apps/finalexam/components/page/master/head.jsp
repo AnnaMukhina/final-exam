@@ -22,4 +22,6 @@
 
     <cq:includeClientLib css="finalexam.bootstrap" />
     <cq:includeClientLib css="finalexam.master.all" />
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+    <cq:includeClientLib js="finalexam.master.all" />
 </head>

@@ -5,4 +5,4 @@
 <slice:lookup var="model" type="<%=com.annamukhina.practice.components.model.TableComponentModel.class%>" />
 <jsp:useBean id="model" type="com.annamukhina.practice.components.model.TableComponentModel" />
 
-<h2>Table ${model.number}</h2>
+<h2>TABLE</h2>

@@ -13,10 +13,4 @@
     </div>
 </div>
 
-<!DOCTYPE html>
-<html>
-<head></head>
-<body>
-<div id="map"></div>
-</body>
-</html>
+
