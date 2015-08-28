@@ -7,9 +7,9 @@
 
 <div class="row">
     <div class="col-sm-5 col-md-6 col-lg-8">
-        <div class="eventTable">
-            <jsp:include page="/bin/test/events" />
-        </div>
+        <%--<div class="eventTable">--%>
+            <%--&lt;%&ndash;<jsp:include page="/bin/test/events" />&ndash;%&gt;--%>
+        <%--</div>--%>
         <form action="" onsubmit="validForm(this)" method="post" id="form">
             Date:<br>
             <input type=text name=date><br>
@@ -23,6 +23,7 @@
     </div>
     <div class="col-sm-2 col-md-2 col-lg-3">
         <button type="button" class="btn btn-success">Add event</button>
+        <%--<button type="button" class="btn btn-success" id="show" onclick="showEvents()">Show evenst</button>--%>
         <button type="button" class="btn btn-danger">Delete event</button>
     </div>
 </div>

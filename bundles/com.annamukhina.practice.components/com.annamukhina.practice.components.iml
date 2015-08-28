@@ -126,6 +126,7 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.aopalliance:com.springsource.org.aopalliance:1.0.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.cognifide.slice:slice-core:4.1.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.cognifide.slice:slice-mapper:4.1.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.googlecode.json-simple:json-simple:1.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.cognifide.slice-addon:slice-aem60:1.0.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.powermock:powermock-module-junit4:1.5" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.powermock:powermock-module-junit4-common:1.5" level="project" />
