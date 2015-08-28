@@ -8,8 +8,8 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
+
 import org.osgi.framework.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,10 +25,9 @@ import javax.jcr.*;
 //@Properties({@Property(name = Constants.SERVICE_DESCRIPTION, value = "Show Events Servlet"),
 //        @Property(name = Constants.SERVICE_VENDOR, value = "<Your Company>")})
 public class ShowEventsServlet extends SlingAllMethodsServlet {
-    private final String path = "/apps/finalexam/components/tableComponent/events.xml/jcr:content";
-    protected static final Logger LOGGER = LoggerFactory.getLogger(SlingAllMethodsServlet.class);
+    private final String path = "/apps/finalexam/components/tableComponent/events";
 
-    Events events = new Events();
+    protected static final Logger LOGGER = LoggerFactory.getLogger(SlingAllMethodsServlet.class);
 
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) {
@@ -36,35 +35,30 @@ public class ShowEventsServlet extends SlingAllMethodsServlet {
 
         Resource resource = resolver.getResource(path);
 
-        Node node = resource.adaptTo(Node.class);
+        Node events = resource.adaptTo(Node.class);
 
-            try {
-                Property jcrData = node.getProperty("jcr:data");
-                response.setContentType("text/html");
-                PrintWriter out = response.getWriter();
-                out.write(jcrData.getString());
-                out.flush();
+        response.setContentType("text/html");
 
-            } catch (RepositoryException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                LOGGER.error("Exception!", e);
-            }
+        try {
+            PrintWriter out = response.getWriter();
 
-        //Node node = resource.adaptTo(Node.class);
+            NodeIterator iterator = events.getNodes();
 
-//        List<Event> eventsList = events.getEvents();
-//        List toJson = new ArrayList();
-//        for(Event event : eventsList) {
-//            String date = event.getDate();
-//            String place = event.getPlace();
-//            String location = event.getLocation();
-//            toJson.add(date);
-//            toJson.add(place);
-//            toJson.add(location);
-//        }
-//        response.setContentType("application/json");
-//        String jsonText = JSONValue.toJSONString(toJson);
-
+            while(iterator.hasNext()) {
+                Node event = iterator.nextNode();
+                Property date = event.getProperty("date");
+                out.write("<p>" + date.getString() + " ");
+                Property place = event.getProperty("place");
+                out.write(place.getString() + " ");
+                Property location = event.getProperty("location");
+                out.write(location.getString() + "</p>");
+                }
+            } catch (PathNotFoundException e2) {
+            e2.printStackTrace();
+        } catch (RepositoryException e2) {
+            e2.printStackTrace();
+        } catch (IOException e2) {
+            e2.printStackTrace();
+        }
     }
 }

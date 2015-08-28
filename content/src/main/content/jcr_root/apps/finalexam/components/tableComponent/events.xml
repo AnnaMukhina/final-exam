@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<root>
-    <events>
-        <event>
-            <date>27.08.2015</date>
-            <place>The Depot</place>
-            <location>Salt Lake City, UT</location>
-        </event>
-    </events>
-</root>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="nt:unstructured"
+          title="events">
+    <event1 jcr:primaryType="nt:unstructured" date="27.08.2015"
+            place="The Depot" location="Salt Lake City, UT">
+    </event1>
+    <event2 jcr:primaryType="nt:unstructured" date="28.08.2015"
+            place="The Fillmore Auditorium" location="Denver, CO">
+    </event2>
+    <event3 jcr:primaryType="nt:unstructured" date="29.08.2015"
+            place="Route 66 Casino" location="Albuquerque, NM">
+    </event3>
+    <event4 jcr:primaryType="nt:unstructured" date="01.09.2015"
+            place="Rialto Theatre" location="Tucson, AZ">
+    </event4>
+    <event5 jcr:primaryType="nt:unstructured" date="03.09.2015"
+            place="Colorado State Fair" location="Pueblo, CO">
+    </event5>
+</jcr:root>
