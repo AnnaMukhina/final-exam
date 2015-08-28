@@ -8,3 +8,10 @@ function initialize() {
     var map = new google.maps.Map(mapCanvas, mapOptions)
 }
 google.maps.event.addDomListener(window, 'load', initialize);
+
+var marker=new google.maps.Marker({
+    position:myCenter,
+    icon:'pinkball.png'
+});
+
+marker.setMap(map);

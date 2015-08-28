@@ -1,11 +1,8 @@
 function sendAjax() {
-
-    // get inputs
     var concert = new Object();
     concert.date = $('#date').val();
     concert.place = $('#place').val();
     concert.location = $('#location').val();
-    // article.tags = $('#tags').val().split(";");
 
     $.ajax({
         url: "/bin/test/add",

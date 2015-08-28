@@ -9,8 +9,10 @@ import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import org.apache.sling.commons.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import javax.jcr.Node;
@@ -25,6 +27,10 @@ import javax.jcr.*;
 //        @Property(name = Constants.SERVICE_VENDOR, value = "<Your Company>")})
 public class ShowEventsServlet extends SlingAllMethodsServlet {
     private final String path = "/apps/finalexam/components/tableComponent/events";
+    private List<String> dates = new ArrayList<>();
+    private List<String> places = new ArrayList<>();
+    private List<String> locations = new ArrayList<>();
+
     protected static final Logger LOGGER = LoggerFactory.getLogger(SlingAllMethodsServlet.class);
 
     @Override
@@ -35,7 +41,7 @@ public class ShowEventsServlet extends SlingAllMethodsServlet {
 
         Node events = resource.adaptTo(Node.class);
 
-        response.setContentType("text/html");
+        response.setContentType("application/json");
 
         try {
             PrintWriter out = response.getWriter();
@@ -44,14 +50,28 @@ public class ShowEventsServlet extends SlingAllMethodsServlet {
 
             while(iterator.hasNext()) {
                 Node event = iterator.nextNode();
-                Property date = event.getProperty("date");
-                out.write("<p>" + date.getString() + " ");
-                Property place = event.getProperty("place");
-                out.write(place.getString() + " ");
-                Property location = event.getProperty("location");
-                out.write(location.getString() + "</p>");
-                }
-            } catch (PathNotFoundException e2) {
+
+                String date = event.getProperty("date").getString();
+
+                dates.add(date);
+
+                String place = event.getProperty("place").getString();
+
+                places.add(place);
+
+                String location = event.getProperty("location").getString();
+
+                locations.add(location);
+            }
+
+            JSONArray jsonDates = new JSONArray(Arrays.asList(dates));
+            JSONArray jsonPlaces = new JSONArray(Arrays.asList(places));
+            JSONArray jsonLocations = new JSONArray(Arrays.asList(locations));
+
+            out.write(jsonDates.toString());
+            out.write(jsonPlaces.toString());
+            out.write(jsonLocations.toString());
+        } catch (PathNotFoundException e2) {
             e2.printStackTrace();
         } catch (RepositoryException e2) {
             e2.printStackTrace();

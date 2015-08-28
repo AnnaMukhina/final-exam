@@ -8,7 +8,7 @@
 <div class="row">
     <div class="col-sm-5 col-md-6 col-lg-8">
         <div class="eventTable">
-            <jsp:include page="/bin/test/events" />
+            <%--<jsp:include page="/bin/test/events" />--%>
         </div>
 
         <div style="width:700px;padding:20px;">
