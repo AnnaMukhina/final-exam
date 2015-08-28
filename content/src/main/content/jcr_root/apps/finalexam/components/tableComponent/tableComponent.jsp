@@ -7,23 +7,40 @@
 
 <div class="row">
     <div class="col-sm-5 col-md-6 col-lg-8">
-        <%--<div class="eventTable">--%>
-            <%--&lt;%&ndash;<jsp:include page="/bin/test/events" />&ndash;%&gt;--%>
-        <%--</div>--%>
-        <form action="" onsubmit="validForm(this)" method="post" id="form">
-            Date:<br>
-            <input type=text name=date><br>
-            Place:<br>
-            <input type=text name=place><br>
-            Location:<br>
-            <input type=text name=location><br>
-            <p><input id="add" type="submit" name="submit" value="Add event"></p>
-            <div class="form_result"> </div>
-        </form>
-    </div>
-    <div class="col-sm-2 col-md-2 col-lg-3">
-        <button type="button" class="btn btn-success">Add event</button>
-        <%--<button type="button" class="btn btn-success" id="show" onclick="showEvents()">Show evenst</button>--%>
-        <button type="button" class="btn btn-danger">Delete event</button>
+        <div class="eventTable">
+            <jsp:include page="/bin/test/events" />
+        </div>
+
+        <div style="width:700px;padding:20px;">
+            <h5 style="text-align:center"><i style="color:#ccc"><small>Events</small></i></h5>
+
+            <table id="added-articles" class="table">
+                <tr>
+                    <th>Date</th>
+                    <th>Place</th>
+                    <th>Location</th>
+                </tr>
+            </table>
+        </div>
+
+        <div class="concert" style="margin:10px;">
+            <div class="input-prepend">
+                <span class="add-on">Date</span><br>
+                <input class="span4" id="date" name="date" type="text">
+            </div>
+            <br/>
+            <div class="input-prepend">
+                <span class="add-on">Place</span><br>
+                <input class="span4" id="place" name="place" type="text">
+            </div>
+            <br/>
+            <div class="input-prepend">
+                <span class="add-on">Location</span><br>
+                <input class="span2" id="location" name="location" type="text">
+            </div>
+            <p>
+                <button class="btn btn-success" type="button" onclick="sendAjax()">Add</button>
+            </p>
+        </div>
     </div>
 </div>

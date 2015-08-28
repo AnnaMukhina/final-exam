@@ -1,19 +1,18 @@
 package com.annamukhina.practice.core.servlet;
 
-import com.annamukhina.practice.core.bundle.Events;
+import com.annamukhina.practice.core.bundle.Concert;
 import org.apache.felix.scr.annotations.sling.SlingServlet;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
-
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.osgi.framework.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.*;
@@ -26,7 +25,6 @@ import javax.jcr.*;
 //        @Property(name = Constants.SERVICE_VENDOR, value = "<Your Company>")})
 public class ShowEventsServlet extends SlingAllMethodsServlet {
     private final String path = "/apps/finalexam/components/tableComponent/events";
-
     protected static final Logger LOGGER = LoggerFactory.getLogger(SlingAllMethodsServlet.class);
 
     @Override
