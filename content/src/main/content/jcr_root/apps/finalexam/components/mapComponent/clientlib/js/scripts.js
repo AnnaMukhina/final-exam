@@ -48,7 +48,8 @@ function sendAjax() {
         mimeType: 'application/json',
 
         success: function (data) {
-
+//            infowindow.setContent('Event is successfully added.');
+//            infowindow.close();
         },
         error:function(data,status,er) {
 //            alert("error: "+data+" status: "+status+" er:"+er);

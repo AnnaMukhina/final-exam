@@ -7,7 +7,7 @@
 
 <div class="row">
     <div class="col-sm-5 col-md-6 col-lg-8">
-        <div class="eventTable">
+        <div id="eventTable">
             <%--<jsp:include page="/bin/test/events" />--%>
         </div>
 

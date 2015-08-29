@@ -7,11 +7,10 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import org.apache.sling.commons.json.JSONArray;
+import org.apache.sling.commons.json.JSONException;
+import org.apache.sling.commons.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import javax.jcr.Node;
@@ -26,62 +25,52 @@ import javax.jcr.*;
 //        @Property(name = Constants.SERVICE_VENDOR, value = "<Your Company>")})
 public class ShowEventsServlet extends SlingAllMethodsServlet {
     private final String path = "/apps/finalexam/components/tableComponent/events";
-    private List<String> dates = new ArrayList<>();
-    private List<String> places = new ArrayList<>();
-    private List<String> cities = new ArrayList<>();
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(SlingAllMethodsServlet.class);
 
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) {
+        LOGGER.debug("ShowEventsServlet doGet");
+
         ResourceResolver resolver = request.getResourceResolver();
 
         Resource resource = resolver.getResource(path);
 
-        Node events = resource.adaptTo(Node.class);
+        Node root = resource.adaptTo(Node.class);
 
         response.setContentType("application/json");
 
         try {
-            PrintWriter out = response.getWriter();
+            NodeIterator iterator = root.getNodes();
 
-            NodeIterator iterator = events.getNodes();
+            JSONArray events = new JSONArray();
 
             while(iterator.hasNext()) {
-                Node event = iterator.nextNode();
+                Node node = iterator.nextNode();
 
-                String date = event.getProperty("date").getString();
+                JSONObject concert = new JSONObject();
 
-                dates.add(date);
+                String date = node.getProperty("date").getString();
 
-                String place = event.getProperty("place").getString();
+                concert.append("date", date);
 
-                places.add(place);
+                String place = node.getProperty("place").getString();
 
-                String city = event.getProperty("city").getString();
+                concert.append("place", place);
 
-                cities.add(city);
+                String city = node.getProperty("city").getString();
+
+                concert.append("city", city);
+
+                events.put(concert);
             }
+            PrintWriter out = response.getWriter();
 
-            JSONArray jsonDates = new JSONArray(Arrays.asList(dates));
-            JSONArray jsonPlaces = new JSONArray(Arrays.asList(places));
-            JSONArray jsonCities = new JSONArray(Arrays.asList(cities));
-
-            out.write(jsonDates.toString());
-            out.write(jsonPlaces.toString());
-            out.write(jsonCities.toString());
-
-            dates.clear();
-            cities.clear();
-            places.clear();
+            out.write(events.toString());
 
             out.flush();
-        } catch (PathNotFoundException e2) {
-            e2.printStackTrace();
-        } catch (RepositoryException e2) {
-            e2.printStackTrace();
-        } catch (IOException e2) {
-            e2.printStackTrace();
+        } catch (RepositoryException | IOException | JSONException e) {
+            LOGGER.error("Exception!", e);
         }
     }
 }
