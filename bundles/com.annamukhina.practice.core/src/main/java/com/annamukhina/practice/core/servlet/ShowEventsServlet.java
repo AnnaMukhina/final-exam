@@ -28,7 +28,7 @@ public class ShowEventsServlet extends SlingAllMethodsServlet {
     private final String path = "/apps/finalexam/components/tableComponent/events";
     private List<String> dates = new ArrayList<>();
     private List<String> places = new ArrayList<>();
-    private List<String> locations = new ArrayList<>();
+    private List<String> cities = new ArrayList<>();
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(SlingAllMethodsServlet.class);
 
@@ -58,21 +58,21 @@ public class ShowEventsServlet extends SlingAllMethodsServlet {
 
                 places.add(place);
 
-                String location = event.getProperty("location").getString();
+                String city = event.getProperty("city").getString();
 
-                locations.add(location);
+                cities.add(city);
             }
 
             JSONArray jsonDates = new JSONArray(Arrays.asList(dates));
             JSONArray jsonPlaces = new JSONArray(Arrays.asList(places));
-            JSONArray jsonLocations = new JSONArray(Arrays.asList(locations));
+            JSONArray jsonCities = new JSONArray(Arrays.asList(cities));
 
             out.write(jsonDates.toString());
             out.write(jsonPlaces.toString());
-            out.write(jsonLocations.toString());
+            out.write(jsonCities.toString());
 
             dates.clear();
-            locations.clear();
+            cities.clear();
             places.clear();
 
             out.flush();

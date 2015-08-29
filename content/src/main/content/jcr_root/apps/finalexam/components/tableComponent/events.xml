@@ -4,18 +4,18 @@
           jcr:primaryType="nt:unstructured"
           title="events">
     <event1 jcr:primaryType="nt:unstructured" date="27.08.2015"
-            place="The Depot" location="Salt Lake City, UT">
+            place="The Depot" city="Salt Lake City, UT">
     </event1>
     <event2 jcr:primaryType="nt:unstructured" date="28.08.2015"
-            place="The Fillmore Auditorium" location="Denver, CO">
+            place="The Fillmore Auditorium" city="Denver, CO">
     </event2>
     <event3 jcr:primaryType="nt:unstructured" date="29.08.2015"
-            place="Route 66 Casino" location="Albuquerque, NM">
+            place="Route 66 Casino" city="Albuquerque, NM">
     </event3>
     <event4 jcr:primaryType="nt:unstructured" date="01.09.2015"
-            place="Rialto Theatre" location="Tucson, AZ">
+            place="Rialto Theatre" city="Tucson, AZ">
     </event4>
     <event5 jcr:primaryType="nt:unstructured" date="03.09.2015"
-            place="Colorado State Fair" location="Pueblo, CO">
+            place="Colorado State Fair" city="Pueblo, CO">
     </event5>
 </jcr:root>

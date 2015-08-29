@@ -52,11 +52,11 @@ public class AddEventServlet extends SlingAllMethodsServlet {
             JSONObject jsonObject = new JSONObject(json);
             String date = jsonObject.getString("date");
             String place = jsonObject.getString("place");
-            String location = jsonObject.getString("location");
+            String city = jsonObject.getString("city");
 
             event.setProperty("date",date );
             event.setProperty("place", place);
-            event.setProperty("location", location);
+            event.setProperty("city", city);
 
             resolver.commit();
         } catch (JSONException e) {
