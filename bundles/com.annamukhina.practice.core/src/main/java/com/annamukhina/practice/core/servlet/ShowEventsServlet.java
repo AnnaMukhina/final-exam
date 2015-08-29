@@ -1,6 +1,5 @@
 package com.annamukhina.practice.core.servlet;
 
-import com.annamukhina.practice.core.bundle.Concert;
 import org.apache.felix.scr.annotations.sling.SlingServlet;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
@@ -71,6 +70,12 @@ public class ShowEventsServlet extends SlingAllMethodsServlet {
             out.write(jsonDates.toString());
             out.write(jsonPlaces.toString());
             out.write(jsonLocations.toString());
+
+            dates.clear();
+            locations.clear();
+            places.clear();
+
+            out.flush();
         } catch (PathNotFoundException e2) {
             e2.printStackTrace();
         } catch (RepositoryException e2) {

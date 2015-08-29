@@ -23,24 +23,24 @@
             </table>
         </div>
 
-        <div class="concert" style="margin:10px;">
-            <div class="input-prepend">
-                <span class="add-on">Date</span><br>
-                <input class="span4" id="date" name="date" type="text">
-            </div>
-            <br/>
-            <div class="input-prepend">
-                <span class="add-on">Place</span><br>
-                <input class="span4" id="place" name="place" type="text">
-            </div>
-            <br/>
-            <div class="input-prepend">
-                <span class="add-on">Location</span><br>
-                <input class="span2" id="location" name="location" type="text">
-            </div>
-            <p>
-                <button class="btn btn-success" type="button" onclick="sendAjax()">Add</button>
-            </p>
-        </div>
+        <%--<div class="concert" style="margin:10px;">--%>
+            <%--<div class="input-prepend">--%>
+                <%--<span class="add-on">Date</span><br>--%>
+                <%--<input class="span4" id="date" name="date" type="text">--%>
+            <%--</div>--%>
+            <%--<br/>--%>
+            <%--<div class="input-prepend">--%>
+                <%--<span class="add-on">Place</span><br>--%>
+                <%--<input class="span4" id="place" name="place" type="text">--%>
+            <%--</div>--%>
+            <%--<br/>--%>
+            <%--<div class="input-prepend">--%>
+                <%--<span class="add-on">Location</span><br>--%>
+                <%--<input class="span2" id="location" name="location" type="text">--%>
+            <%--</div>--%>
+            <%--<p>--%>
+                <%--<button class="btn btn-success" type="button" onclick="sendAjax()">Add</button>--%>
+            <%--</p>--%>
+        <%--</div>--%>
     </div>
 </div>
