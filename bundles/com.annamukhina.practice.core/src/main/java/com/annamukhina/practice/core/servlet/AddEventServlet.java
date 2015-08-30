@@ -9,9 +9,6 @@ import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 import org.apache.sling.commons.json.JSONException;
 
 import javax.jcr.*;
-import javax.jcr.lock.LockException;
-import javax.jcr.nodetype.ConstraintViolationException;
-import javax.jcr.version.VersionException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -32,7 +29,11 @@ public class AddEventServlet extends SlingAllMethodsServlet {
 
         Resource resource = resolver.getResource(path);
 
+        Resource serviceRes = resolver.getResource("/apps/finalexam/components/tableComponent/service");
+
         Node root = resource.adaptTo(Node.class);
+
+        Node service = serviceRes.adaptTo(Node.class);
 
         BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
 
@@ -43,11 +44,13 @@ public class AddEventServlet extends SlingAllMethodsServlet {
         }
 
         try {
-            long numberOfNodes = root.getNodes().getSize();
+            long numberOfNodes = service.getProperty("numberOfNodes").getLong();
 
             numberOfNodes++;
 
             String name = "event"+numberOfNodes;
+
+            service.setProperty("numberOfNodes", numberOfNodes);
 
             Node event  = root.addNode(name);
 
@@ -63,6 +66,7 @@ public class AddEventServlet extends SlingAllMethodsServlet {
             event.setProperty("city", city);
             event.setProperty("latitude", latitude);
             event.setProperty("longitude", longitude);
+            event.setProperty("id", numberOfNodes);
 
             resolver.commit();
 
@@ -71,24 +75,8 @@ public class AddEventServlet extends SlingAllMethodsServlet {
             out.write("{}");
 
             out.flush();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (PathNotFoundException e) {
-            e.printStackTrace();
-        } catch (ItemExistsException e) {
-            e.printStackTrace();
-        } catch (ValueFormatException e) {
-            e.printStackTrace();
-        } catch (VersionException e) {
-            e.printStackTrace();
-        } catch (ConstraintViolationException e) {
-            e.printStackTrace();
-        } catch (LockException e) {
-            e.printStackTrace();
-        } catch (RepositoryException e) {
+        } catch (JSONException | RepositoryException e) {
             e.printStackTrace();
         }
- //TODO rename nodes because of problems with deletion
-
     }
 }
