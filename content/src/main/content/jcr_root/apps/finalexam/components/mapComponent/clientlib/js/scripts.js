@@ -25,7 +25,8 @@ function GetMap() {
 
             marker.setIcon('/apps/finalexam/components/mapComponent/clientlib/logo.jpg');
 
-            var idToJson = item.id;
+            var id = item.id;
+            var oldDate = item.date;
 
             var contentString = $("<div class='concertInfo'><h4><b>" + item.date + "</b></h2><div><h4>"
                 + item.place + "</h4></div><div><h4>" + item.city +"</h4></div>" +
@@ -38,21 +39,21 @@ function GetMap() {
                 infowindow.open(map, marker);
                 var delBtn = contentString.find('button.btn-danger')[0];
                 google.maps.event.addDomListener(delBtn, 'click', function(event) {
-                    delEvent(marker, idToJson);
+                    delEvent(marker, id);
                 });
                 var editBtn = contentString.find('button.btn-default')[0];
                 google.maps.event.addDomListener(editBtn, 'click', function(event) {
-                    editEvent();
+                    editEvent(infowindow, id, oldDate);
                 });
             });
 
-            function delEvent(marker, idToJson){
+            function delEvent(marker, id){
                 marker.setMap(null);
                 $.ajax({
                     url: "/bin/test/delete",
                     type: 'POST',
-                    dataType: 'html',
-                    data: idToJson.toString(),
+                    dataType: 'text',
+                    data: id.toString(),
                     contentType: 'text/plain',
 
                     success: function () {
@@ -63,9 +64,37 @@ function GetMap() {
                         alert("error: "+data+" status: "+status+" er:"+er);
                     }
                 });
-
             }
-            function editEvent(){}
+
+            function editEvent(infowindow, id, oldDate){
+                var editWindow = $("<div class='dialog'><b><p>Old date: " + oldDate
+                    + "</p><p>New date: <input type='text' id='newDate'/></b><button class='btn-default'>Edit</p></div>");
+                infowindow.setContent(editWindow[0]);
+
+                var btn = editWindow.find('button.btn-default')[0];
+                google.maps.event.addDomListener(btn, 'click', function(event) {
+                    var newDate = $('#newDate').val();
+                    sendDate(id, newDate);
+                });
+
+                function sendDate(id, newDate){
+                    $.ajax({
+                        url: "/bin/test/edit",
+                        type: 'POST',
+                        dataType: 'text',
+                        data: id.toString()+" "+newDate.toString(),
+                        contentType: 'text/plain',
+
+                        success: function () {
+                            var output = "Event was successfully edited";
+                            infowindow.setContent(output);
+                        },
+                        error:function(data,status,er) {
+                            alert("error: "+data+" status: "+status+" er:"+er);
+                        }
+                    });
+                }
+            }
         })
     });
 }

@@ -43,7 +43,7 @@ function sendAjax() {
 
         success: function () {
             var output = "Event was successfully added";
-            $("#log").append(output)
+            $("#log").append(output);
         },
         error:function(data,status,er) {
             alert("error: "+data+" status: "+status+" er:"+er);
