@@ -50,6 +50,10 @@ public class ShowEventsServlet extends SlingAllMethodsServlet {
 
                 JSONObject concert = new JSONObject();
 
+                String id = node.getProperty("id").getString();
+
+                concert.append("id", id);
+
                 String date = node.getProperty("date").getString();
 
                 concert.append("date", date);
