@@ -17,5 +17,32 @@
                 </tr>
             </table>
         </div>
+
+        <div class="form" style="margin:10px;">
+            <div class="input-prepend">
+                <span class="add-on">Date</span><br>
+                <input class="span4" id="date" name="date" type="text">
+            </div>
+            <div class="input-prepend">
+                <span class="add-on">Place</span><br>
+                <input class="span4" id="place" name="place" type="text">
+            </div>
+            <div class="input-prepend">
+                <span class="add-on">City</span><br>
+                <input class="span2" id="city" name="city" type="text">
+            </div>
+            <div class="input-prepend">
+                <span class="add-on">Latitude</span><br>
+                <input class="span2" id="latitude" name="latitude" type="text">
+            </div>
+            <div class="input-prepend">
+                <span class="add-on">Longitude</span><br>
+                <input class="span2" id="longitude" name="longitude" type="text">
+            </div>
+            <p>
+                <button class="btn btn-success" type="button" onclick="sendAjax()">Add event</button>
+            </p>
+        </div>
+        <div id="log"></div>
     </div>
 </div>

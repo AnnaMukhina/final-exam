@@ -62,6 +62,14 @@ public class ShowEventsServlet extends SlingAllMethodsServlet {
 
                 concert.append("city", city);
 
+                String latitude = node.getProperty("latitude").getString();
+
+                concert.append("latitude", latitude);
+
+                String longitude = node.getProperty("longitude").getString();
+
+                concert.append("longitude", longitude);
+
                 events.put(concert);
             }
             PrintWriter out = response.getWriter();

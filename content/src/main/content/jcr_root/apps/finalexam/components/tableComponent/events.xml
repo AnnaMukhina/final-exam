@@ -1,21 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+<jcr:root xmlns:jcr="http://www.jcp.org/jcr/1.0"
           xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
           jcr:primaryType="nt:unstructured"
           title="events">
     <event1 jcr:primaryType="nt:unstructured" date="27.08.2015"
-            place="The Depot" city="Salt Lake City, UT">
+            place="The Depot" city="Salt Lake City, UT"
+            latitude="40.7694705" longitude="-111.9030388">
     </event1>
     <event2 jcr:primaryType="nt:unstructured" date="28.08.2015"
-            place="The Fillmore Auditorium" city="Denver, CO">
+            place="The Fillmore Auditorium" city="Denver, CO"
+            latitude="39.7405594" longitude="-104.9771865">
     </event2>
     <event3 jcr:primaryType="nt:unstructured" date="29.08.2015"
-            place="Route 66 Casino" city="Albuquerque, NM">
+            place="Route 66 Casino" city="Albuquerque, NM"
+            latitude="35.0284345" longitude="-106.9534335">
     </event3>
     <event4 jcr:primaryType="nt:unstructured" date="01.09.2015"
-            place="Rialto Theatre" city="Tucson, AZ">
+            place="Rialto Theatre" city="Tucson, AZ"
+            latitude="45.5236233" longitude="-73.6047988">
     </event4>
     <event5 jcr:primaryType="nt:unstructured" date="03.09.2015"
-            place="Colorado State Fair" city="Pueblo, CO">
+            place="Colorado State Fair" city="Pueblo, CO"
+            latitude="38.2418851" longitude="-104.6392986">
     </event5>
 </jcr:root>
