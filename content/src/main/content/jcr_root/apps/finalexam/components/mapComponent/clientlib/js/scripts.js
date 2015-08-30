@@ -11,10 +11,17 @@ function initialize() {
         placeMarker(event.latLng);
     });
 
-    var date = '<div class="concert" style="margin:10px;"><div class="input-prepend"><span class="add-on">Date</span><br><input class="span4" id="date" name="date" type="text"></div>'
-    var place = '<div class="input-prepend"><span class="add-on">Place</span><br><input class="span4" id="place" name="place" type="text"></div>'
-    var city = '<div class="input-prepend"><span class="add-on">City</span><br><input class="span2" id="city" name="city" type="text"></div><br>'
-    var button = '<p align="right"><button class="btn btn-success" type="button" onclick="sendAjax()">Add</button></p></div></div>'
+    var contentString = $("<div class='concert' style='margin:10px;'>" +
+        "<div class='input-prepend'>" +
+        "<span class='add-on'>Date</span><br>" +
+        "<input class='span4' id='date' name='date' type='text'></div>" +
+        "<div class='input-prepend'>" +
+        "<span class='add-on'>Place</span><br>" +
+        "<input class='span4' id='place' name='place' type='text'></div>" +
+        "<div class='input-prepend'>" +
+        "<span class='add-on'>City</span><br>" +
+        "<input class='span4' id='city' name='city' type='text'></div><br>" +
+        "<p align='right'><button name='add' class='btn-success'>Add event</p></div>");
 
     function placeMarker(location) {
         var marker = new google.maps.Marker({
@@ -23,41 +30,38 @@ function initialize() {
             icon:'/apps/finalexam/components/mapComponent/clientlib/logo.jpg'
         });
 
-        var infowindow = new google.maps.InfoWindow({
-            content: date+place+city+button
-        });
+        var infowindow = new google.maps.InfoWindow();
+        infowindow.setContent(contentString[0]);
         infowindow.open(map,marker);
+
+        var addBtn = contentString.find('button.btn-success')[0];
+
+        google.maps.event.addDomListener(addBtn, 'click', function(event) {
+            sendAjax(infowindow);
+        });
+    }
+
+    function sendAjax(infowindow) {
+        var concert = {};
+        concert.date = $('#date').val();
+        concert.place = $('#place').val();
+        concert.city = $('#city').val();
+
+        $.ajax({
+            url: "/bin/test/add",
+            type: 'POST',
+            dataType: 'json',
+            data: JSON.stringify(concert),
+            contentType: 'application/json',
+            mimeType: 'application/json',
+
+            success: function () {
+                infowindow.setContent('Event is successfully added.');
+            },
+            error:function(data,status,er) {
+                alert("error: "+data+" status: "+status+" er:"+er);
+            }
+        });
     }
 }
 google.maps.event.addDomListener(window, 'load', initialize);
-
-
-
-function sendAjax() {
-    var concert = new Object();
-    concert.date = $('#date').val();
-    concert.place = $('#place').val();
-    concert.city = $('#city').val();
-
-    $.ajax({
-        url: "/bin/test/add",
-        type: 'POST',
-        dataType: 'json',
-        data: JSON.stringify(concert),
-        contentType: 'application/json',
-        mimeType: 'application/json',
-
-        success: function (data) {
-//            infowindow.setContent('Event is successfully added.');
-//            infowindow.close();
-        },
-        error:function(data,status,er) {
-//            alert("error: "+data+" status: "+status+" er:"+er);
-        }
-    });
-}
-
-
-
-
-

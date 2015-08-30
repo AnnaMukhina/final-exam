@@ -15,6 +15,8 @@ import javax.jcr.version.VersionException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
+
 import org.apache.sling.commons.json.*;
 
 /**
@@ -59,6 +61,12 @@ public class AddEventServlet extends SlingAllMethodsServlet {
             event.setProperty("city", city);
 
             resolver.commit();
+
+            PrintWriter out = response.getWriter();
+
+            out.write("{}");
+
+            out.flush();
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (PathNotFoundException e) {
