@@ -27,8 +27,6 @@ public class EditEventServlet extends SlingAllMethodsServlet {
 
         String input = br.readLine();
 
-        System.out.println(input);
-
         String[] inputArray = input.split(" ");
 
         String id = inputArray[0];

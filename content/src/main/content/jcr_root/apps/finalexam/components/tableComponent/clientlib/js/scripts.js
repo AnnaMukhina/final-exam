@@ -1,4 +1,8 @@
 $( document ).ready(function() {
+    showEvents();
+});
+
+function showEvents() {
     $.ajax({
         url: '/bin/test/events',
         type: 'GET',
@@ -6,13 +10,14 @@ $( document ).ready(function() {
         success: function(data){
             if(data){
                 var length = data.length;
-                var output = "";
+                var output = "<table class='table'><tr><th>Date</th><th>Place</th><th>Location</th></tr>";
                 if(length > 0){
                     for(var i = 0; i < length; i++){
                         if(data[i].date && data[i].place && data[i].city){
                             output += "<tr><td>"+data[i].date+"</td><td>"+data[i].place+"</td><td>"+data[i].city+"</td></tr>";
                         }
                     }
+                    output += ("</table>");
                     if(output != ""){
                         $("#eventTable").append(output).removeClass("hidden");
                     }
@@ -23,7 +28,13 @@ $( document ).ready(function() {
             alert('error: ' + textStatus + ': ' + errorThrown);
         }
     });
-});
+}
+
+function addEvent() {
+    form.reset();
+    $("#form").show();
+    $("#addition").hide();
+}
 
 function sendAjax() {
     var concert = {};
@@ -42,13 +53,26 @@ function sendAjax() {
         mimeType: 'application/json',
 
         success: function () {
-            var output = "Event was successfully added";
+            var output = "<p>Event was successfully added</p>";
+            clearLog();
             $("#log").append(output);
+            $("#form").hide();
+            $("#addition").show();
+            clearEventsList();
+            showEvents();
         },
         error:function(data,status,er) {
             alert("error: "+data+" status: "+status+" er:"+er);
         }
     });
+}
+
+function clearEventsList() {
+    $("#eventTable").find("table").remove();
+}
+
+function clearLog() {
+    $("#log").find("p").remove();
 }
 
 

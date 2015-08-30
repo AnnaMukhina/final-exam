@@ -5,7 +5,7 @@ $(document).ready(function () {
 function GetMap() {
     google.maps.visualRefresh = true;
 
-    var myLatlng = new google.maps.LatLng(40.7033127,-73.979681);
+    var myLatlng = new google.maps.LatLng(43.000325,-107.5545669);
 
     var mapOptions = {
         zoom: 5,
@@ -57,8 +57,11 @@ function GetMap() {
                     contentType: 'text/plain',
 
                     success: function () {
-                        var output = "Event was successfully deleted";
-                        $("#log").append(output)
+                        var output = "<p>Event was successfully deleted</p>";
+                        clearLog();
+                        $("#log").append(output);
+                        clearEventsList();
+                        showEvents();
                     },
                     error:function(data,status,er) {
                         alert("error: "+data+" status: "+status+" er:"+er);
@@ -88,6 +91,8 @@ function GetMap() {
                         success: function () {
                             var output = "Event was successfully edited";
                             infowindow.setContent(output);
+                            clearEventsList();
+                            showEvents();
                         },
                         error:function(data,status,er) {
                             alert("error: "+data+" status: "+status+" er:"+er);
@@ -98,5 +103,6 @@ function GetMap() {
         })
     });
 }
+
 
 
