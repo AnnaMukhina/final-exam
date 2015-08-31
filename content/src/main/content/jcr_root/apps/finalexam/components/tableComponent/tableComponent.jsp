@@ -40,6 +40,16 @@
             </form>
             <button class="btn btn-success" id="addition" type="button" onclick="addEvent()">Add event</button>
             <div id="log"></div>
+
+            <button class="btn btn-primary" id="search" type="button" onclick="showBlock()">Find event</button>
+            <div id="search-block" style="display: none">
+                <p>City:</p>
+                <form id="find-event">
+                    <input id="cityName" type="text">
+                    <button id="find" onclick="findEvent()">Find</button>
+                </form>
+            </div>
+            <div id="response"></div>
         </div>
     </div>
 </div>

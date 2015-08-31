@@ -76,4 +76,38 @@ function clearLog() {
     $("#log").find("p").remove();
 }
 
+function showBlock() {
+//    $("#find-event").reset();
+    $("#search").hide();
+    $("#search-block").show();
+}
+
+function findEvent() {
+    $("#search").show();
+    $("#search-block").hide();
+
+//    var cityName = $("#cityName").val();
+//    alert('Here soon will be request to servlet');
+//
+//    function sendCity(cityName){
+//        $.ajax({
+//            url: "/bin/test/find",
+//            type: 'GET',
+//            dataType: 'text',
+//            data: cityName.toString(),
+//            contentType: 'text/plain',
+//
+//            success: function () {
+//                var output = "Event was successfully edited";
+//                infowindow.setContent(output);
+//                clearEventsList();
+//                showEvents();
+//            },
+//            error:function(data,status,er) {
+//                alert("error: "+data+" status: "+status+" er:"+er);
+//            }
+//        });
+//    }
+}
+
 

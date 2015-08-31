@@ -1,5 +1,6 @@
 package com.annamukhina.practice.components.model;
 
+
 import com.cognifide.slice.api.model.InitializableModel;
 import com.cognifide.slice.mapper.annotation.JcrProperty;
 import com.cognifide.slice.mapper.annotation.SliceResource;
@@ -14,7 +15,7 @@ import org.slf4j.LoggerFactory;
 
 @SliceResource
 public class MapComponentModel implements InitializableModel {
-    private static final Logger logger = LoggerFactory.getLogger(SimpleComponentModel.class);
+    private static final Logger logger = LoggerFactory.getLogger(MapComponentModel.class);
 
     @JcrProperty
     private String height;
@@ -39,5 +40,12 @@ public class MapComponentModel implements InitializableModel {
     @Override
     public void afterCreated() {
         logger.debug("Entering MapComponentModel.afterCreated");
+
+        if (height == null) {
+            logger.debug("There is no height property in the resource");
+        }
+        if (width == null) {
+            logger.debug("There is no width property in the resource");
+        }
     }
 }

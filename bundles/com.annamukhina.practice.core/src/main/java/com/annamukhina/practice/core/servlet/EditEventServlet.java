@@ -6,6 +6,8 @@ import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
@@ -19,10 +21,18 @@ import java.io.PrintWriter;
  */
 @SlingServlet(paths = "/bin/test/edit")
 public class EditEventServlet extends SlingAllMethodsServlet {
-    private final String path = "/apps/finalexam/components/tableComponent/events/";
+    private final String pathToRootNode = "/apps/finalexam/components/tableComponent/events/";
+
+    private final String rootNodeName = "event";
+
+    private final String dateProperty = "date";
+
+    protected static final Logger LOGGER = LoggerFactory.getLogger(SlingAllMethodsServlet.class);
 
     @Override
     protected void doPost(SlingHttpServletRequest request, SlingHttpServletResponse response) throws IOException {
+        LOGGER.debug("EditEventServlet doPost");
+
         BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
 
         String input = br.readLine();
@@ -33,16 +43,16 @@ public class EditEventServlet extends SlingAllMethodsServlet {
 
         String newDate = inputArray[1];
 
-        String nodeName = "event"+id;
+        String nodeName = rootNodeName + id;
 
         ResourceResolver resolver = request.getResourceResolver();
 
-        Resource resource = resolver.getResource(path+nodeName);
+        Resource resource = resolver.getResource(pathToRootNode +nodeName);
 
         Node node = resource.adaptTo(Node.class);
 
         try {
-            node.setProperty("date", newDate);
+            node.setProperty(dateProperty, newDate);
 
             resolver.commit();
 
@@ -52,7 +62,7 @@ public class EditEventServlet extends SlingAllMethodsServlet {
 
             out.flush();
         } catch (RepositoryException e) {
-            e.printStackTrace();
+            LOGGER.error("Exception!", e);
         }
     }
 }

@@ -6,6 +6,8 @@ import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
@@ -19,23 +21,25 @@ import java.io.PrintWriter;
  */
 @SlingServlet(paths = "/bin/test/delete")
 public class DeleteEventServlet extends SlingAllMethodsServlet {
-    private final String path = "/apps/finalexam/components/tableComponent/events/";
+    private final String pathToRootNode = "/apps/finalexam/components/tableComponent/events/";
+
+    private final String rootNodeName = "event";
+
+    protected static final Logger LOGGER = LoggerFactory.getLogger(SlingAllMethodsServlet.class);
 
     @Override
     protected void doPost(SlingHttpServletRequest request, SlingHttpServletResponse response) throws IOException {
+        LOGGER.debug("DeleteEventServlet doPost");
+
         BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
 
-        String id = "";
+        String id = br.readLine();
 
-        if(br != null){
-            id = br.readLine();
-        }
-
-        String nodeName = "event"+id;
+        String nodeName = rootNodeName + id;
 
         ResourceResolver resolver = request.getResourceResolver();
 
-        Resource resource = resolver.getResource(path+nodeName);
+        Resource resource = resolver.getResource(pathToRootNode + nodeName);
 
         Node node = resource.adaptTo(Node.class);
 
@@ -50,7 +54,7 @@ public class DeleteEventServlet extends SlingAllMethodsServlet {
 
             out.flush();
         } catch (RepositoryException e) {
-            e.printStackTrace();
+            LOGGER.error("Exception!", e);
         }
     }
 }

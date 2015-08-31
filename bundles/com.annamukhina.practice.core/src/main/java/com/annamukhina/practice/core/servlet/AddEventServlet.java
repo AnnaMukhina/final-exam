@@ -15,58 +15,88 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
 import org.apache.sling.commons.json.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author anna_mukhina
  */
 @SlingServlet(paths = "/bin/test/add")
 public class AddEventServlet extends SlingAllMethodsServlet {
-    private final String path = "/apps/finalexam/components/tableComponent/events";
+    private final String pathToRootNode = "/apps/finalexam/components/tableComponent/events";
+
+    private final String pathToServiceNode = "/apps/finalexam/components/tableComponent/service";
+
+    private final String numberOfNodesProperty = "numberOfNodes";
+
+    private final String dateProperty = "date";
+
+    private final String placeProperty = "place";
+
+    private final String cityProperty = "city";
+
+    private final String latitudeProperty = "latitude";
+
+    private final String longitudeProperty = "longitude";
+
+    private final String idProperty = "id";
+
+    private final String rootNodeName = "event";
+
+    protected static final Logger LOGGER = LoggerFactory.getLogger(SlingAllMethodsServlet.class);
 
     @Override
     protected void doPost(SlingHttpServletRequest request, SlingHttpServletResponse response) throws IOException {
+        LOGGER.debug("AddEventServlet doPost");
+
         ResourceResolver resolver = request.getResourceResolver();
 
-        Resource resource = resolver.getResource(path);
+        Resource eventsResource = resolver.getResource(pathToRootNode);
 
-        Resource serviceRes = resolver.getResource("/apps/finalexam/components/tableComponent/service");
+        Resource serviceResource = resolver.getResource(pathToServiceNode);
 
-        Node root = resource.adaptTo(Node.class);
+        Node root = eventsResource.adaptTo(Node.class);
 
-        Node service = serviceRes.adaptTo(Node.class);
+        Node service = serviceResource.adaptTo(Node.class);
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(request.getInputStream()));
 
-        String json = "";
-
-        if(br != null){
-            json = br.readLine();
-        }
+        String json = reader.readLine();
 
         try {
-            long numberOfNodes = service.getProperty("numberOfNodes").getLong();
+            long numberOfNodes = service.getProperty(numberOfNodesProperty).getLong();
 
             numberOfNodes++;
 
-            String name = "event"+numberOfNodes;
+            String nodeName = rootNodeName + numberOfNodes;
 
-            service.setProperty("numberOfNodes", numberOfNodes);
+            service.setProperty(numberOfNodesProperty, numberOfNodes);
 
-            Node event  = root.addNode(name);
+            Node event  = root.addNode(nodeName);
 
             JSONObject jsonObject = new JSONObject(json);
-            String date = jsonObject.getString("date");
-            String place = jsonObject.getString("place");
-            String city = jsonObject.getString("city");
-            String latitude = jsonObject.getString("latitude");
-            String longitude = jsonObject.getString("longitude");
 
-            event.setProperty("date",date );
-            event.setProperty("place", place);
-            event.setProperty("city", city);
-            event.setProperty("latitude", latitude);
-            event.setProperty("longitude", longitude);
-            event.setProperty("id", numberOfNodes);
+            String date = jsonObject.getString(dateProperty);
+
+            String place = jsonObject.getString(placeProperty);
+
+            String city = jsonObject.getString(cityProperty);
+
+            String latitude = jsonObject.getString(latitudeProperty);
+
+            String longitude = jsonObject.getString(longitudeProperty);
+
+            event.setProperty(dateProperty,date );
+
+            event.setProperty(placeProperty, place);
+
+            event.setProperty(cityProperty, city);
+
+            event.setProperty(latitudeProperty, latitude);
+
+            event.setProperty(longitudeProperty, longitude);
+
+            event.setProperty(idProperty, numberOfNodes);
 
             resolver.commit();
 
@@ -76,7 +106,7 @@ public class AddEventServlet extends SlingAllMethodsServlet {
 
             out.flush();
         } catch (JSONException | RepositoryException e) {
-            e.printStackTrace();
+            LOGGER.error("Exception!", e);
         }
     }
 }
