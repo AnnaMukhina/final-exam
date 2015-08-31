@@ -6,7 +6,7 @@
         cq:lastModifiedBy="admin"
         cq:template="/apps/finalexam/templates/samplepage"
         jcr:primaryType="cq:PageContent"
-        jcr:title="Sample Page"
+        jcr:title="English"
         sling:resourceType="finalexam/components/page/samplepage"
         pageTitle="samplepage"/>
     <products/>

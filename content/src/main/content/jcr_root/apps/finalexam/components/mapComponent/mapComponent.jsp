@@ -6,5 +6,8 @@
 <jsp:useBean id="model" type="com.annamukhina.practice.components.model.MapComponentModel" />
 
 <div class="col-sm-1 col-md-1 col-lg-1"></div>
-<div id = "map"></div>
+    <div id="map" style="height: ${model.height}px;width: ${model.width}px;">
+    </div>
 <div class="col-sm-1 col-md-1 col-lg-1"></div>
+
+

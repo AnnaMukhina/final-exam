@@ -8,8 +8,10 @@
         <items jcr:primaryType="cq:WidgetCollection">
             <tab1 jcr:primaryType="cq:Panel" title="Map Component">
                 <items jcr:primaryType="cq:WidgetCollection">
-                    <text jcr:primaryType="nt:unstructured" fieldLabel="Text"
-                          name="./number" validateOnBlur="true" xtype="textfield"/>
+                    <height jcr:primaryType="nt:unstructured" fieldLabel="Height of the map"
+                            name="./height" validateOnBlur="true" xtype="textfield"/>
+                    <width jcr:primaryType="nt:unstructured" fieldLabel="Width of the map"
+                          name="./width" validateOnBlur="true" xtype="textfield"/>
                 </items>
             </tab1>
         </items>

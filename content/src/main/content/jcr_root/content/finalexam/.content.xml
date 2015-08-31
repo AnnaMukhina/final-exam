@@ -12,4 +12,5 @@
         sling:resourceType="foundation/components/redirect"
         redirectTarget="/content/finalexam/en"/>
     <en/>
+    <it/>
 </jcr:root>

@@ -17,11 +17,18 @@ public class MapComponentModel implements InitializableModel {
     private static final Logger logger = LoggerFactory.getLogger(SimpleComponentModel.class);
 
     @JcrProperty
-    private String text;
+    private String height;
+
+    @JcrProperty
+    private String width;
 
 
-    public String getText() {
-        return text;
+    public String getHeight() {
+        return height;
+    }
+
+    public String getWidth() {
+        return width;
     }
 
     @Inject
@@ -31,6 +38,6 @@ public class MapComponentModel implements InitializableModel {
 
     @Override
     public void afterCreated() {
-        logger.debug("Entering SimpleComponentModel.afterCreated");
+        logger.debug("Entering MapComponentModel.afterCreated");
     }
 }

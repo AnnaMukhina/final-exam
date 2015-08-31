@@ -1,8 +1,8 @@
 $(document).ready(function () {
-    GetMap();
+   getMap();
 });
 
-function GetMap() {
+function getMap() {
     google.maps.visualRefresh = true;
 
     var myLatlng = new google.maps.LatLng(43.000325,-107.5545669);

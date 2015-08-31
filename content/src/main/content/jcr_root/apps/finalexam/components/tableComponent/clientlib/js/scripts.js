@@ -60,6 +60,7 @@ function sendAjax() {
             $("#addition").show();
             clearEventsList();
             showEvents();
+            getMap();
         },
         error:function(data,status,er) {
             alert("error: "+data+" status: "+status+" er:"+er);
