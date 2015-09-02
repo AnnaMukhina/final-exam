@@ -5,14 +5,15 @@
 <slice:lookup var="model" type="<%=com.annamukhina.practice.components.model.TableComponentModel.class%>" />
 <jsp:useBean id="model" type="com.annamukhina.practice.components.model.TableComponentModel" />
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-6">
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12"></div>
+        <div class="col-lg-6 col-md-5 col-sm-12 col-xs-12">
             <h3 style="text-align:center"><b style="color:black">Tour</b></h3>
             <div id="eventTable"></div>
         </div>
-        <div class="col-md-1"></div>
-        <div class="col-md-3">
+        <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12"></div>
+        <div class="col-lg-3 col-md-2 col-sm-12 col-xs-12">
             <form id="form" style="margin:10px;display: none">
                 <div class="input-prepend">
                     <span class="add-on">Date</span><br>
@@ -39,9 +40,8 @@
                 </p>
             </form>
             <button class="btn btn-success" id="addition" type="button" onclick="addEvent()">Add event</button>
-            <div id="log"></div>
-
             <button class="btn btn-primary" id="search" type="button" onclick="showBlock()">Find event</button>
+            <div id="log"></div>
             <div id="search-block" style="display: none">
                 <p>City:</p>
                 <form id="find-event">
@@ -49,7 +49,7 @@
                     <button id="find" onclick="findEvent()">Find</button>
                 </form>
             </div>
-            <div id="response"></div>
         </div>
     </div>
 </div>
+

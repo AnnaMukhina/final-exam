@@ -3,6 +3,12 @@
           xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
           jcr:primaryType="nt:folder"
           title="i18n">
-    <en jcr:primaryType="nt:folder" jcr:mixinTypes="mix:language" jcr:language="en"></en>
-    <it jcr:primaryType="nt:folder" jcr:mixinTypes="mix:language" jcr:language="it"></it>
+    <en jcr:primaryType="nt:folder" jcr:mixinTypes="mix:language" jcr:language="en">
+    </en>
+    <ru jcr:primaryType="nt:folder" jcr:mixinTypes="mix:language" jcr:language="ru">
+        <!--<City-->
+                <!--jcr:mixinTypes="[sling:Message]"-->
+                <!--jcr:primaryType="nt:folder"-->
+                <!--sling:message="Город"/>-->
+    </ru>
 </jcr:root>

@@ -21,10 +21,8 @@ import javax.jcr.*;
  * @author anna_mukhina
  */
 @SlingServlet(paths = "/bin/test/events")
-//@Properties({@Property(name = Constants.SERVICE_DESCRIPTION, value = "Show Events Servlet"),
-//        @Property(name = Constants.SERVICE_VENDOR, value = "<Your Company>")})
 public class ShowEventsServlet extends SlingAllMethodsServlet {
-    private final String path = "/apps/finalexam/components/tableComponent/events";
+    private final String pathToRootNode = "/apps/finalexam/components/tableComponent/events";
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(SlingAllMethodsServlet.class);
 
@@ -34,7 +32,7 @@ public class ShowEventsServlet extends SlingAllMethodsServlet {
 
         ResourceResolver resolver = request.getResourceResolver();
 
-        Resource resource = resolver.getResource(path);
+        Resource resource = resolver.getResource(pathToRootNode);
 
         Node root = resource.adaptTo(Node.class);
 
@@ -43,42 +41,42 @@ public class ShowEventsServlet extends SlingAllMethodsServlet {
         try {
             NodeIterator iterator = root.getNodes();
 
-            JSONArray events = new JSONArray();
+            JSONArray eventsJSON = new JSONArray();
 
             while(iterator.hasNext()) {
                 Node node = iterator.nextNode();
 
-                JSONObject concert = new JSONObject();
+                JSONObject concertJSON = new JSONObject();
 
                 String id = node.getProperty("id").getString();
 
-                concert.append("id", id);
+                concertJSON.append("id", id);
 
                 String date = node.getProperty("date").getString();
 
-                concert.append("date", date);
+                concertJSON.append("date", date);
 
                 String place = node.getProperty("place").getString();
 
-                concert.append("place", place);
+                concertJSON.append("place", place);
 
                 String city = node.getProperty("city").getString();
 
-                concert.append("city", city);
+                concertJSON.append("city", city);
 
                 String latitude = node.getProperty("latitude").getString();
 
-                concert.append("latitude", latitude);
+                concertJSON.append("latitude", latitude);
 
                 String longitude = node.getProperty("longitude").getString();
 
-                concert.append("longitude", longitude);
+                concertJSON.append("longitude", longitude);
 
-                events.put(concert);
+                eventsJSON.put(concertJSON);
             }
             PrintWriter out = response.getWriter();
 
-            out.write(events.toString());
+            out.write(eventsJSON.toString());
 
             out.flush();
         } catch (RepositoryException | IOException | JSONException e) {

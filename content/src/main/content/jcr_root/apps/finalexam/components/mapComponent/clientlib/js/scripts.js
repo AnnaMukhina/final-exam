@@ -10,7 +10,7 @@ function getMap() {
     var mapOptions = {
         zoom: 5,
         center: myLatlng,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
     }
 
     var map = new google.maps.Map(document.getElementById("map"), mapOptions);
@@ -104,5 +104,6 @@ function getMap() {
     });
 }
 
-
+//google.maps.event.addDomListener(window, 'resize', getMap());
+//google.maps.event.addDomListener(window, 'load', getMap());
 
