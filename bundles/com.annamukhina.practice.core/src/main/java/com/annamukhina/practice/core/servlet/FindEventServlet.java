@@ -24,7 +24,7 @@ import java.io.PrintWriter;
  */
 @SlingServlet(paths = "/bin/test/find")
 public class FindEventServlet extends SlingAllMethodsServlet {
-    private final String path = "/apps/finalexam/components/tableComponent/events";
+    private final String pathToRootNode = "/apps/finalexam/components/tableComponent/events";
 
     private final String dateProperty = "date";
 
@@ -35,16 +35,19 @@ public class FindEventServlet extends SlingAllMethodsServlet {
     protected static final Logger LOGGER = LoggerFactory.getLogger(SlingAllMethodsServlet.class);
 
     @Override
-    protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws IOException {
-        LOGGER.debug("FindEventServlet doGet");
+    protected void doPost(SlingHttpServletRequest request, SlingHttpServletResponse response) throws IOException {
+        LOGGER.debug("FindEventServlet doPost");
+
+        String date = "";
+        String place = "";
 
         BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
 
-        String template = br.readLine();
+        String template =  br.readLine();
 
         ResourceResolver resolver = request.getResourceResolver();
 
-        Resource resource = resolver.getResource(path);
+        Resource resource = resolver.getResource(pathToRootNode);
 
         Node root = resource.adaptTo(Node.class);
 
@@ -53,39 +56,35 @@ public class FindEventServlet extends SlingAllMethodsServlet {
         try {
             NodeIterator iterator = root.getNodes();
 
-            JSONObject concert = new JSONObject();
-
             while(iterator.hasNext()) {
                 Node node = iterator.nextNode();
 
                 String city = node.getProperty(cityProperty).getString();
 
                 if(city.equals(template)) {
-                    String date = node.getProperty(dateProperty).getString();
-                    String place = node.getProperty(placeProperty).getString();
+                    date = node.getProperty(dateProperty).getString();
 
-                    concert.append(dateProperty, date);
+//                    System.out.println(date);
 
-                    concert.append(placeProperty, place);
+                    place = node.getProperty(placeProperty).getString();
 
                     break;
                 }
             }
-            if(concert.isNull(dateProperty)) {
-                response.setContentType("text/html");
+            response.setContentType("text/html");
 
-                out.write("There is no concerts in this town :(");
+            if(dateProperty.equals(null)) {
+
+                out.write("<p>There is no concerts in this town</p>");
 
                 out.flush();
             }
             else {
-                response.setContentType("application/json");
-                
-                out.write(concert.toString());
+                out.write("<p>"+ date+ "</p><p>" + place + "</p>");
 
                 out.flush();
             }
-        } catch (RepositoryException | JSONException e) {
+        } catch (RepositoryException e) {
             LOGGER.error("Exception!", e);
         }
     }

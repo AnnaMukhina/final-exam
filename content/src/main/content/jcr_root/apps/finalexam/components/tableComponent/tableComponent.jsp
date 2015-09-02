@@ -49,6 +49,7 @@
                     <button id="find" onclick="findEvent()">Find</button>
                 </form>
             </div>
+            <h2>${currentPage.path}</h2>
         </div>
     </div>
 </div>

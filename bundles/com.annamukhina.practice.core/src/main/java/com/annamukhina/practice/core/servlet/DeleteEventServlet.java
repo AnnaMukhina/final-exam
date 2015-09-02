@@ -23,8 +23,6 @@ import java.io.PrintWriter;
 public class DeleteEventServlet extends SlingAllMethodsServlet {
     private final String pathToRootNode = "/apps/finalexam/components/tableComponent/events/";
 
-    private final String rootNodeName = "event";
-
     protected static final Logger LOGGER = LoggerFactory.getLogger(SlingAllMethodsServlet.class);
 
     @Override
@@ -35,26 +33,20 @@ public class DeleteEventServlet extends SlingAllMethodsServlet {
 
         String id = br.readLine();
 
-        String nodeName = rootNodeName + id;
+        String nodeName = "e" + id;
 
         ResourceResolver resolver = request.getResourceResolver();
 
         Resource resource = resolver.getResource(pathToRootNode + nodeName);
 
-        Node node = resource.adaptTo(Node.class);
+        resolver.delete(resource);
 
-        try {
-            node.remove();
+        resolver.commit();
 
-            resolver.commit();
+        PrintWriter out = response.getWriter();
 
-            PrintWriter out = response.getWriter();
+        out.write("{}");
 
-            out.write("{}");
-
-            out.flush();
-        } catch (RepositoryException e) {
-            LOGGER.error("Exception!", e);
-        }
+        out.flush();
     }
 }

@@ -8,11 +8,13 @@ import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 import org.apache.sling.commons.json.JSONException;
 
-import javax.jcr.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 import org.apache.sling.commons.json.*;
 import org.slf4j.Logger;
@@ -24,10 +26,6 @@ import org.slf4j.LoggerFactory;
 @SlingServlet(paths = "/bin/test/add")
 public class AddEventServlet extends SlingAllMethodsServlet {
     private final String pathToRootNode = "/apps/finalexam/components/tableComponent/events";
-
-    private final String pathToServiceNode = "/apps/finalexam/components/tableComponent/service";
-
-    private final String numberOfNodesProperty = "numberOfNodes";
 
     private final String dateProperty = "date";
 
@@ -41,8 +39,6 @@ public class AddEventServlet extends SlingAllMethodsServlet {
 
     private final String idProperty = "id";
 
-    private final String rootNodeName = "event";
-
     protected static final Logger LOGGER = LoggerFactory.getLogger(SlingAllMethodsServlet.class);
 
     @Override
@@ -53,28 +49,18 @@ public class AddEventServlet extends SlingAllMethodsServlet {
 
         Resource eventsResource = resolver.getResource(pathToRootNode);
 
-        Resource serviceResource = resolver.getResource(pathToServiceNode);
-
-        Node root = eventsResource.adaptTo(Node.class);
-
-        Node service = serviceResource.adaptTo(Node.class);
-
         BufferedReader reader = new BufferedReader(new InputStreamReader(request.getInputStream()));
 
         String json = reader.readLine();
 
         try {
-            long numberOfNodes = service.getProperty(numberOfNodesProperty).getLong();
+            ResourceResolver eventsResolver = eventsResource.getResourceResolver();
 
-            numberOfNodes++;
-
-            String nodeName = rootNodeName + numberOfNodes;
-
-            service.setProperty(numberOfNodesProperty, numberOfNodes);
-
-            Node event  = root.addNode(nodeName);
+            UUID uuid = UUID.randomUUID();
 
             JSONObject jsonObject = new JSONObject(json);
+
+            String nodeName = "e"+uuid;
 
             String date = jsonObject.getString(dateProperty);
 
@@ -86,17 +72,18 @@ public class AddEventServlet extends SlingAllMethodsServlet {
 
             String longitude = jsonObject.getString(longitudeProperty);
 
-            event.setProperty(dateProperty,date );
+            String id = uuid.toString();
 
-            event.setProperty(placeProperty, place);
+            Map<String, Object> properties = new HashMap<>();
 
-            event.setProperty(cityProperty, city);
+            properties.put(dateProperty, date);
+            properties.put(placeProperty, place);
+            properties.put(cityProperty, city);
+            properties.put(latitudeProperty, latitude);
+            properties.put(longitudeProperty, longitude);
+            properties.put(idProperty, id);
 
-            event.setProperty(latitudeProperty, latitude);
-
-            event.setProperty(longitudeProperty, longitude);
-
-            event.setProperty(idProperty, numberOfNodes);
+            eventsResolver.create(eventsResource, nodeName, properties);
 
             resolver.commit();
 
@@ -105,7 +92,7 @@ public class AddEventServlet extends SlingAllMethodsServlet {
             out.write("{}");
 
             out.flush();
-        } catch (JSONException | RepositoryException e) {
+        } catch (JSONException e) {
             LOGGER.error("Exception!", e);
         }
     }

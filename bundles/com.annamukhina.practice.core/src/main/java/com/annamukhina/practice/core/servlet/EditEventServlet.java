@@ -3,14 +3,13 @@ package com.annamukhina.practice.core.servlet;
 import org.apache.felix.scr.annotations.sling.SlingServlet;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
+import org.apache.sling.api.resource.ModifiableValueMap;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.jcr.Node;
-import javax.jcr.RepositoryException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -22,8 +21,6 @@ import java.io.PrintWriter;
 @SlingServlet(paths = "/bin/test/edit")
 public class EditEventServlet extends SlingAllMethodsServlet {
     private final String pathToRootNode = "/apps/finalexam/components/tableComponent/events/";
-
-    private final String rootNodeName = "event";
 
     private final String dateProperty = "date";
 
@@ -43,26 +40,20 @@ public class EditEventServlet extends SlingAllMethodsServlet {
 
         String newDate = inputArray[1];
 
-        String nodeName = rootNodeName + id;
-
         ResourceResolver resolver = request.getResourceResolver();
 
-        Resource resource = resolver.getResource(pathToRootNode +nodeName);
+        Resource resource = resolver.getResource(pathToRootNode + id);
 
-        Node node = resource.adaptTo(Node.class);
+        ModifiableValueMap properties = resource.adaptTo(ModifiableValueMap.class);
 
-        try {
-            node.setProperty(dateProperty, newDate);
+        properties.put(dateProperty, newDate);
 
-            resolver.commit();
+        resolver.commit();
 
-            PrintWriter out = response.getWriter();
+        PrintWriter out = response.getWriter();
 
-            out.write("{}");
+        out.write("{}");
 
-            out.flush();
-        } catch (RepositoryException e) {
-            LOGGER.error("Exception!", e);
-        }
+        out.flush();
     }
 }
