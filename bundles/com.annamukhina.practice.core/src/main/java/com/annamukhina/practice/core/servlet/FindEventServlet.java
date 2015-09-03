@@ -5,6 +5,7 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 import org.apache.sling.commons.json.JSONException;
 import org.apache.sling.commons.json.JSONObject;
@@ -18,6 +19,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * @author anna_mukhina
@@ -38,8 +42,7 @@ public class FindEventServlet extends SlingAllMethodsServlet {
     protected void doPost(SlingHttpServletRequest request, SlingHttpServletResponse response) throws IOException {
         LOGGER.debug("FindEventServlet doPost");
 
-        String date = "";
-        String place = "";
+        List<String> eventList = new ArrayList<>();
 
         BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
 
@@ -47,45 +50,43 @@ public class FindEventServlet extends SlingAllMethodsServlet {
 
         ResourceResolver resolver = request.getResourceResolver();
 
-        Resource resource = resolver.getResource(pathToRootNode);
-
-        Node root = resource.adaptTo(Node.class);
+        Resource rootResource = resolver.getResource(pathToRootNode);
 
         PrintWriter out = response.getWriter();
 
-        try {
-            NodeIterator iterator = root.getNodes();
+        Iterator<Resource> iterator = resolver.listChildren(rootResource);
 
-            while(iterator.hasNext()) {
-                Node node = iterator.nextNode();
+        while(iterator.hasNext()) {
+            Resource nodeResource = iterator.next();
 
-                String city = node.getProperty(cityProperty).getString();
+            ValueMap propertyMap  = nodeResource.getValueMap();
 
-                if(city.equals(template)) {
-                    date = node.getProperty(dateProperty).getString();
+            String city = propertyMap.get(cityProperty, String.class);
 
-//                    System.out.println(date);
+            if(city.equals(template)) {
+                String date = propertyMap.get(dateProperty, String.class);
 
-                    place = node.getProperty(placeProperty).getString();
+                String place = propertyMap.get(placeProperty, String.class);
 
-                    break;
-                }
+                eventList.add(date);
+                eventList.add(place);
+
+                break;
             }
-            response.setContentType("text/html");
+        }
+        response.setContentType("text/html");
 
-            if(dateProperty.equals(null)) {
+        if(eventList.size() == 0) {
 
-                out.write("<p>There is no concerts in this town</p>");
+            out.write("<p>-</p>");
 
-                out.flush();
+            out.flush();
+        }
+        else {
+            for(String str : eventList) {
+                out.write("<p>" + str + "</p>");
             }
-            else {
-                out.write("<p>"+ date+ "</p><p>" + place + "</p>");
-
-                out.flush();
-            }
-        } catch (RepositoryException e) {
-            LOGGER.error("Exception!", e);
+            out.flush();
         }
     }
 }

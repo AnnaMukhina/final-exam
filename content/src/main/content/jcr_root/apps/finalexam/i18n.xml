@@ -1,14 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:jcr="http://www.jcp.org/jcr/1.0"
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0"
+          xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          xmlns:mix="http://www.jcp.org/jcr/mix/1.0"
           xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
           jcr:primaryType="nt:folder"
           title="i18n">
     <en jcr:primaryType="nt:folder" jcr:mixinTypes="mix:language" jcr:language="en">
+        <add
+                jcr:mixinTypes="[sling:Message]"
+                jcr:primaryType="nt:folder"
+                sling:message="Add event"/>
+        <city
+                jcr:mixinTypes="[sling:Message]"
+                jcr:primaryType="nt:folder"
+                sling:message="City"/>
+        <date
+                jcr:mixinTypes="[sling:Message]"
+                jcr:primaryType="nt:folder"
+                sling:message="Date"/>
+        <find
+                jcr:mixinTypes="[sling:Message]"
+                jcr:primaryType="nt:folder"
+                sling:message="Find event"/>
+        <latitude
+                jcr:mixinTypes="[sling:Message]"
+                jcr:primaryType="nt:folder"
+                sling:message="Latitude"/>
+        <longitude
+                jcr:mixinTypes="[sling:Message]"
+                jcr:primaryType="nt:folder"
+                sling:message="Longitude"/>
+        <place
+                jcr:mixinTypes="[sling:Message]"
+                jcr:primaryType="nt:folder"
+                sling:message="Place"/>
+        <tour
+                jcr:mixinTypes="[sling:Message]"
+                jcr:primaryType="nt:folder"
+                sling:message="Tour"/>
     </en>
     <ru jcr:primaryType="nt:folder" jcr:mixinTypes="mix:language" jcr:language="ru">
-        <!--<City-->
-                <!--jcr:mixinTypes="[sling:Message]"-->
-                <!--jcr:primaryType="nt:folder"-->
-                <!--sling:message="Город"/>-->
+        <add
+                jcr:mixinTypes="[sling:Message]"
+                jcr:primaryType="nt:folder"
+                sling:message="Добавить событие"/>
+        <city
+                jcr:mixinTypes="[sling:Message]"
+                jcr:primaryType="nt:folder"
+                sling:message="Город"/>
+        <date
+                jcr:mixinTypes="[sling:Message]"
+                jcr:primaryType="nt:folder"
+                sling:message="Дата"/>
+        <find
+                jcr:mixinTypes="[sling:Message]"
+                jcr:primaryType="nt:folder"
+                sling:message="Найти событие"/>
+        <latitude
+                jcr:mixinTypes="[sling:Message]"
+                jcr:primaryType="nt:folder"
+                sling:message="Широта"/>
+        <longitude
+                jcr:mixinTypes="[sling:Message]"
+                jcr:primaryType="nt:folder"
+                sling:message="Долгота"/>
+        <place
+                jcr:mixinTypes="[sling:Message]"
+                jcr:primaryType="nt:folder"
+                sling:message="Площадка"/>
+        <tour
+                jcr:mixinTypes="[sling:Message]"
+                jcr:primaryType="nt:folder"
+                sling:message="Турне"/>
     </ru>
 </jcr:root>

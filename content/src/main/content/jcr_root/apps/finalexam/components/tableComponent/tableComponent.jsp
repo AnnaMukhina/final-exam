@@ -2,9 +2,6 @@
 <%@include file="/apps/finalexam/global.jsp" %>
 <%@include file="/apps/finalexam/init.jsp" %>
 
-<slice:lookup var="model" type="<%=com.annamukhina.practice.components.model.TableComponentModel.class%>" />
-<jsp:useBean id="model" type="com.annamukhina.practice.components.model.TableComponentModel" />
-
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12"></div>

@@ -45,7 +45,7 @@ function sendAjax() {
     concert.longitude = $('#longitude').val();
 
     $.ajax({
-        url: "/bin/test/add",
+        url: "/bin/test/events",
         type: 'POST',
         dataType: 'json',
         data: JSON.stringify(concert),
@@ -95,11 +95,8 @@ function findEvent() {
         dataType: 'text',
 
         success: function (data) {
-            //var output = "<p>Event was successfully found</p>";
             clearLog();
-//            $("#log").append(data);
-//            alert(data);
-//            $("#log").append(data.place);
+            $("#log").append(data);
         },
         error:function(data,status,er) {
             alert("error: "+data+" status: "+status+" er:"+er);

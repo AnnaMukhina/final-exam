@@ -54,8 +54,8 @@ function getMap() {
             function delEvent(marker, id){
                 marker.setMap(null);
                 $.ajax({
-                    url: "/bin/test/delete",
-                    type: 'POST',
+                    url: "/bin/test/events",
+                    type: 'DELETE',
                     dataType: 'text',
                     data: id.toString(),
                     contentType: 'text/plain',
@@ -86,8 +86,8 @@ function getMap() {
 
                 function sendDate(id, newDate){
                     $.ajax({
-                        url: "/bin/test/edit",
-                        type: 'POST',
+                        url: "/bin/test/events",
+                        type: 'PUT',
                         dataType: 'text',
                         data: id.toString()+" "+newDate.toString(),
                         contentType: 'text/plain',
