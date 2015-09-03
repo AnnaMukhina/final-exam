@@ -97,8 +97,8 @@ function findEvent() {
         success: function (data) {
             //var output = "<p>Event was successfully found</p>";
             clearLog();
-//            $("#log").append(data.date);
-            $("#log").append(data);
+//            $("#log").append(data);
+//            alert(data);
 //            $("#log").append(data.place);
         },
         error:function(data,status,er) {

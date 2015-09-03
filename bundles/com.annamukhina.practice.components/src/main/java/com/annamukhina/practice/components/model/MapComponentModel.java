@@ -18,18 +18,31 @@ public class MapComponentModel implements InitializableModel {
     private static final Logger logger = LoggerFactory.getLogger(MapComponentModel.class);
 
     @JcrProperty
-    private String height;
+    private String latitude;
 
     @JcrProperty
-    private String width;
+    private String longitude;
 
+    @JcrProperty
+    private String zoom;
+
+    @JcrProperty
+    private String height;
 
     public String getHeight() {
         return height;
     }
 
-    public String getWidth() {
-        return width;
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public String getZoom() {
+        return zoom;
     }
 
     @Inject
@@ -40,12 +53,5 @@ public class MapComponentModel implements InitializableModel {
     @Override
     public void afterCreated() {
         logger.debug("Entering MapComponentModel.afterCreated");
-
-        if (height == null) {
-            logger.debug("There is no height property in the resource");
-        }
-        if (width == null) {
-            logger.debug("There is no width property in the resource");
-        }
     }
 }

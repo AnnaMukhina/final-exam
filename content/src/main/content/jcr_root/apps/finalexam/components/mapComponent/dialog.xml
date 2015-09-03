@@ -10,8 +10,12 @@
                 <items jcr:primaryType="cq:WidgetCollection">
                     <height jcr:primaryType="nt:unstructured" fieldLabel="Height of the map"
                             name="./height" validateOnBlur="true" xtype="textfield"/>
-                    <width jcr:primaryType="nt:unstructured" fieldLabel="Width of the map"
-                          name="./width" validateOnBlur="true" xtype="textfield"/>
+                    <latitude jcr:primaryType="nt:unstructured" fieldLabel="Latitude of the center"
+                          name="./latitude" validateOnBlur="true" xtype="textfield"/>
+                    <longitude jcr:primaryType="nt:unstructured" fieldLabel="Longitude of the center"
+                              name="./longitude" validateOnBlur="true" xtype="textfield"/>
+                    <zoom jcr:primaryType="nt:unstructured" fieldLabel="Zoom"
+                               name="./zoom" validateOnBlur="true" xtype="textfield"/>
                 </items>
             </tab1>
         </items>

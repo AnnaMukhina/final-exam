@@ -5,12 +5,16 @@ $(document).ready(function () {
 function getMap() {
     google.maps.visualRefresh = true;
 
-    var myLatlng = new google.maps.LatLng(43.000325,-107.5545669);
+    var zoom = parseInt($("span#zoom").text());
+    var latitude = parseFloat($("span#latitude").text());
+    var longitude = parseFloat($("span#longitude").text());
+
+    var myLatlng = new google.maps.LatLng(latitude,longitude);
 
     var mapOptions = {
-        zoom: 5,
+        zoom: zoom,
         center: myLatlng,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
     }
 
     var map = new google.maps.Map(document.getElementById("map"), mapOptions);
