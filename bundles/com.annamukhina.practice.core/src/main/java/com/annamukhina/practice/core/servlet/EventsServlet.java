@@ -121,7 +121,7 @@ public class EventsServlet extends SlingAllMethodsServlet {
 
         String pathToPage = getPathToPage(request);
 
-        String pathToRootNode = pathToPage + "events";
+        String pathToRootNode = pathToPage + "events/";
 
         ResourceResolver resolver = request.getResourceResolver();
 

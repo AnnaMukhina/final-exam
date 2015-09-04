@@ -108,6 +108,3 @@ function getMap() {
     });
 }
 
-//google.maps.event.addDomListener(window, 'resize', getMap());
-//google.maps.event.addDomListener(window, 'load', getMap());
-
