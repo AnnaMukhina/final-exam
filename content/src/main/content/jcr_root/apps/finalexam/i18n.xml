@@ -38,6 +38,10 @@
                 jcr:mixinTypes="[sling:Message]"
                 jcr:primaryType="nt:folder"
                 sling:message="Tour"/>
+        <find
+                jcr:mixinTypes="[sling:Message]"
+                jcr:primaryType="nt:folder"
+                sling:message="Find"/>
     </en>
     <ru jcr:primaryType="nt:folder" jcr:mixinTypes="mix:language" jcr:language="ru">
         <add
@@ -67,10 +71,14 @@
         <place
                 jcr:mixinTypes="[sling:Message]"
                 jcr:primaryType="nt:folder"
-                sling:message="Площадка"/>
+                sling:message="Место проведения"/>
         <tour
                 jcr:mixinTypes="[sling:Message]"
                 jcr:primaryType="nt:folder"
                 sling:message="Турне"/>
+        <find
+                jcr:mixinTypes="[sling:Message]"
+                jcr:primaryType="nt:folder"
+                sling:message="Найти"/>
     </ru>
 </jcr:root>

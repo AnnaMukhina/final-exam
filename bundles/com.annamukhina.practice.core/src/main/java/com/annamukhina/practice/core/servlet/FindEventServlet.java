@@ -7,18 +7,15 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
-import org.apache.sling.commons.json.JSONException;
-import org.apache.sling.commons.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.jcr.Node;
-import javax.jcr.NodeIterator;
-import javax.jcr.RepositoryException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -28,8 +25,6 @@ import java.util.List;
  */
 @SlingServlet(paths = "/bin/test/find")
 public class FindEventServlet extends SlingAllMethodsServlet {
-    private final String pathToRootNode = "/apps/finalexam/components/tableComponent/events";
-
     private final String dateProperty = "date";
 
     private final String placeProperty = "place";
@@ -41,6 +36,10 @@ public class FindEventServlet extends SlingAllMethodsServlet {
     @Override
     protected void doPost(SlingHttpServletRequest request, SlingHttpServletResponse response) throws IOException {
         LOGGER.debug("FindEventServlet doPost");
+
+        String pathToPage = getPathToPage(request);
+
+        String pathToRootNode = pathToPage + "events";
 
         List<String> eventList = new ArrayList<>();
 
@@ -88,5 +87,11 @@ public class FindEventServlet extends SlingAllMethodsServlet {
             }
             out.flush();
         }
+    }
+
+    private String getPathToPage(SlingHttpServletRequest request) throws MalformedURLException {
+        URL url = new URL(request.getHeader("referer"));
+        String path = url.getPath();
+        return path.replace(".html", "/");
     }
 }

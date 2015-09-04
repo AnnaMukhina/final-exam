@@ -1,0 +1,2 @@
+<button class="btn btn-default" type="button" onclick="location.href='/content/finalexam/en.html';">en</button>
+<button class="btn btn-default" type="button" onclick="location.href='/content/finalexam/ru.html';">ru</button>

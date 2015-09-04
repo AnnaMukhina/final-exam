@@ -50,9 +50,8 @@ function sendAjax() {
         dataType: 'json',
         data: JSON.stringify(concert),
         contentType: 'application/json',
-        mimeType: 'application/json',
 
-        success: function () {
+        success: function (data) {
             var output = "<p>Event was successfully added</p>";
             clearLog();
             $("#log").append(output);

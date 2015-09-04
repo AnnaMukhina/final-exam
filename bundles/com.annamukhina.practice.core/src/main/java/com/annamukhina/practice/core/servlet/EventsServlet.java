@@ -19,6 +19,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -29,8 +31,6 @@ import java.util.UUID;
 */
 @SlingServlet(paths = "/bin/test/events")
 public class EventsServlet extends SlingAllMethodsServlet {
-    private final String pathToRootNode = "/content/finalexam/events/";
-
     protected static final Logger LOGGER = LoggerFactory.getLogger(SlingAllMethodsServlet.class);
 
     private final String dateProperty = "date";
@@ -47,7 +47,11 @@ public class EventsServlet extends SlingAllMethodsServlet {
 
     @Override
     protected void doPost(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException, IOException {
-        LOGGER.debug("AddEventServlet doPost");
+        LOGGER.debug("EventsServlet doPost");
+
+        String pathToPage = getPathToPage(request);
+
+        String pathToRootNode = pathToPage + "events";
 
         ResourceResolver resolver = request.getResourceResolver();
 
@@ -103,7 +107,7 @@ public class EventsServlet extends SlingAllMethodsServlet {
 
     @Override
     protected void doPut(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException, IOException {
-        LOGGER.debug("EditEventServlet doPost");
+        LOGGER.debug("EventsServlet doPut");
 
         BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
 
@@ -114,6 +118,10 @@ public class EventsServlet extends SlingAllMethodsServlet {
         String id = inputArray[0];
 
         String newDate = inputArray[1];
+
+        String pathToPage = getPathToPage(request);
+
+        String pathToRootNode = pathToPage + "events";
 
         ResourceResolver resolver = request.getResourceResolver();
 
@@ -134,7 +142,11 @@ public class EventsServlet extends SlingAllMethodsServlet {
 
     @Override
     protected void doDelete(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException, IOException {
-        LOGGER.debug("DeleteEventServlet doPost");
+        LOGGER.debug("EventsServlet doDelete");
+
+        String pathToPage = getPathToPage(request);
+
+        String pathToRootNode = pathToPage + "events";
 
         BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
 
@@ -161,7 +173,11 @@ public class EventsServlet extends SlingAllMethodsServlet {
 
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException, IOException {
-        LOGGER.debug("ShowEventsServlet doGet");
+        LOGGER.debug("EventsServlet doGet");
+
+        String pathToPage = getPathToPage(request);
+
+        String pathToRootNode = pathToPage + "events";
 
         ResourceResolver resolver = request.getResourceResolver();
 
@@ -215,5 +231,11 @@ public class EventsServlet extends SlingAllMethodsServlet {
         } catch (IOException | JSONException e) {
             LOGGER.error("Exception!", e);
         }
+    }
+
+    private String getPathToPage(SlingHttpServletRequest request) throws MalformedURLException {
+        URL url = new URL(request.getHeader("referer"));
+        String path = url.getPath();
+        return path.replace(".html", "/");
     }
 }
