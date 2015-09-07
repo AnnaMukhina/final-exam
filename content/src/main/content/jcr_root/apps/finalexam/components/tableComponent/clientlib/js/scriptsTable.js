@@ -48,7 +48,7 @@ function sendAjax() {
         url: "/bin/test/events",
         type: 'POST',
         dataType: 'json',
-        data: JSON.stringify(concert),
+        data: concert,
         contentType: 'application/json',
 
         success: function (data) {

@@ -63,6 +63,10 @@
                     <useProxy>false</useProxy>
                     <embeddedTarget>${sling.bundles.install.path}</embeddedTarget>
                     <embeddeds>
+                        <!--<embedded>-->
+                            <!--<groupId>com.fasterxml.jackson.core</groupId>-->
+                            <!--<artifactId>jackson-databind</artifactId>-->
+                        <!--</embedded>-->
                         <embedded>
                             <groupId>com.annamukhina.practice</groupId>
                             <artifactId>com.annamukhina.practice.components</artifactId>

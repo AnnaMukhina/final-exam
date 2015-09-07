@@ -1,5 +1,6 @@
 package com.annamukhina.practice.core.servlet;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.felix.scr.annotations.sling.SlingServlet;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
@@ -45,13 +46,15 @@ public class EventsServlet extends SlingAllMethodsServlet {
 
     private final String idProperty = "id";
 
+    private final String rootNodename = "events";
+
     @Override
     protected void doPost(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException, IOException {
         LOGGER.debug("EventsServlet doPost");
 
         String pathToPage = getPathToPage(request);
 
-        String pathToRootNode = pathToPage + "events";
+        String pathToRootNode = pathToPage + rootNodename;
 
         ResourceResolver resolver = request.getResourceResolver();
 
@@ -61,48 +64,38 @@ public class EventsServlet extends SlingAllMethodsServlet {
 
         String json = reader.readLine();
 
-        try {
-            ResourceResolver eventsResolver = eventsResource.getResourceResolver();
+        System.out.println(json);
 
-            UUID uuid = UUID.randomUUID();
+        UUID uuid = UUID.randomUUID();
 
-            JSONObject jsonObject = new JSONObject(json);
+        ObjectMapper mapper = new ObjectMapper();
 
-            String nodeName = "e"+uuid;
+        Event event = mapper.readValue(json, Event.class);
 
-            String date = jsonObject.getString(dateProperty);
+        String nodeName = "e"+uuid;
 
-            String place = jsonObject.getString(placeProperty);
+        String id = uuid.toString();
 
-            String city = jsonObject.getString(cityProperty);
+        Map<String, Object> properties = new HashMap<>();
 
-            String latitude = jsonObject.getString(latitudeProperty);
+        properties.put(dateProperty,event.getDate());
+        properties.put(placeProperty,event.getPlace());
+        properties.put(cityProperty, event.getCity());
+        properties.put(latitudeProperty, event.getLatitude());
+        properties.put(longitudeProperty, event.getLongitude());
+        properties.put(idProperty, id);
 
-            String longitude = jsonObject.getString(longitudeProperty);
+        ResourceResolver eventsResolver = eventsResource.getResourceResolver();
 
-            String id = uuid.toString();
+        eventsResolver.create(eventsResource, nodeName, properties);
 
-            Map<String, Object> properties = new HashMap<>();
+        resolver.commit();
 
-            properties.put(dateProperty, date);
-            properties.put(placeProperty, place);
-            properties.put(cityProperty, city);
-            properties.put(latitudeProperty, latitude);
-            properties.put(longitudeProperty, longitude);
-            properties.put(idProperty, id);
+        PrintWriter out = response.getWriter();
 
-            eventsResolver.create(eventsResource, nodeName, properties);
+        out.write("{}");
 
-            resolver.commit();
-
-            PrintWriter out = response.getWriter();
-
-            out.write("{}");
-
-            out.flush();
-        } catch (JSONException e) {
-            LOGGER.error("Exception!", e);
-        }
+        out.flush();
     }
 
     @Override
@@ -121,7 +114,7 @@ public class EventsServlet extends SlingAllMethodsServlet {
 
         String pathToPage = getPathToPage(request);
 
-        String pathToRootNode = pathToPage + "events/";
+        String pathToRootNode = pathToPage + rootNodename + "/";
 
         ResourceResolver resolver = request.getResourceResolver();
 
