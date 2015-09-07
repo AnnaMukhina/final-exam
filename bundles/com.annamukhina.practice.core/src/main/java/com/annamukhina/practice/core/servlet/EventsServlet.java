@@ -100,11 +100,9 @@ public class EventsServlet extends SlingAllMethodsServlet {
 
         String input = br.readLine();
 
-        String[] inputArray = input.split(" ");
+        ObjectMapper mapper = new ObjectMapper();
 
-        String id = inputArray[0];
-
-        String newDate = inputArray[1];
+        Event event = mapper.readValue(input, Event.class);
 
         String pathToPage = getPathToPage(request);
 
@@ -112,11 +110,11 @@ public class EventsServlet extends SlingAllMethodsServlet {
 
         ResourceResolver resolver = request.getResourceResolver();
 
-        Resource resource = resolver.getResource(pathToRootNode + "e" + id);
+        Resource resource = resolver.getResource(pathToRootNode + "e" + event.getId());
 
         ModifiableValueMap properties = resource.adaptTo(ModifiableValueMap.class);
 
-        properties.put(dateProperty, newDate);
+        properties.put(dateProperty, event.getDate());
 
         resolver.commit();
 

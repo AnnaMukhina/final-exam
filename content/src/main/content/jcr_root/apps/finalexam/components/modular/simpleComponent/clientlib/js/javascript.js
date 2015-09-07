@@ -1,1 +1,0 @@
-// simpleComponent specific JavaScript

@@ -22,7 +22,7 @@
 
     <cq:includeClientLib css="finalexam.bootstrap" />
     <cq:includeClientLib css="finalexam.master.all" />
-    <cq:includeClientLib css="finalexam.jquery" />
+    <%--<cq:includeClientLib css="finalexam.jquery" />--%>
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&language=en"></script>
     <cq:includeClientLib js="finalexam.master.all" />
 </head>

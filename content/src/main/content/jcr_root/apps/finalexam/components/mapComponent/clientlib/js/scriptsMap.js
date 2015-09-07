@@ -85,13 +85,14 @@ function getMap() {
                 });
 
                 function sendDate(id, newDate){
+                    var info = {};
+                    info.id = id;
+                    info.date = newDate;
                     $.ajax({
                         url: "/bin/test/events",
                         type: 'PUT',
-                        dataType: 'text',
-                        data: id.toString()+" "+newDate.toString(),
-                        contentType: 'text/plain',
-
+                        data: JSON.stringify(info),
+                        contentType: 'application/json',
                         success: function () {
                             var output = "Event was successfully edited";
                             infowindow.setContent(output);
