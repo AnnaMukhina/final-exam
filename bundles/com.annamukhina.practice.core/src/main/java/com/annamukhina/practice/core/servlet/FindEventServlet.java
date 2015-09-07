@@ -31,6 +31,8 @@ public class FindEventServlet extends SlingAllMethodsServlet {
 
     private final String cityProperty = "city";
 
+    private final String rootNodename = "events";
+
     protected static final Logger LOGGER = LoggerFactory.getLogger(SlingAllMethodsServlet.class);
 
     @Override
@@ -39,7 +41,7 @@ public class FindEventServlet extends SlingAllMethodsServlet {
 
         String pathToPage = getPathToPage(request);
 
-        String pathToRootNode = pathToPage + "events";
+        String pathToRootNode = pathToPage + rootNodename;
 
         List<String> eventList = new ArrayList<>();
 

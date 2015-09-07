@@ -139,7 +139,7 @@ public class EventsServlet extends SlingAllMethodsServlet {
 
         String pathToPage = getPathToPage(request);
 
-        String pathToRootNode = pathToPage + "events";
+        String pathToRootNode = pathToPage + rootNodename;
 
         BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
 
@@ -170,7 +170,7 @@ public class EventsServlet extends SlingAllMethodsServlet {
 
         String pathToPage = getPathToPage(request);
 
-        String pathToRootNode = pathToPage + "events";
+        String pathToRootNode = pathToPage + rootNodename;
 
         ResourceResolver resolver = request.getResourceResolver();
 
