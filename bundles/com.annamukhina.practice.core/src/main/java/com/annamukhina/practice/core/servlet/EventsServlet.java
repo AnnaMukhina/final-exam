@@ -22,10 +22,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
 * @author anna_mukhina
@@ -63,8 +60,6 @@ public class EventsServlet extends SlingAllMethodsServlet {
         BufferedReader reader = new BufferedReader(new InputStreamReader(request.getInputStream()));
 
         String json = reader.readLine();
-
-        System.out.println(json);
 
         UUID uuid = UUID.randomUUID();
 
@@ -181,47 +176,39 @@ public class EventsServlet extends SlingAllMethodsServlet {
         try {
             Iterator<Resource> iterator = resolver.listChildren(root);
 
-            JSONArray eventsJSON = new JSONArray();
+            List<String> eventsJSON = new ArrayList<>();
 
             while(iterator.hasNext()) {
                 Resource nodeResource = iterator.next();
 
                 ValueMap propertyMap  = nodeResource.getValueMap();
 
-                JSONObject concertJSON = new JSONObject();
+                ObjectMapper mapper = new ObjectMapper();
 
                 String id = propertyMap.get(idProperty, String.class);
 
-                concertJSON.append(idProperty, id);
-
                 String date = propertyMap.get(dateProperty, String.class);
-
-                concertJSON.append(dateProperty, date);
 
                 String place = propertyMap.get(placeProperty, String.class);
 
-                concertJSON.append(placeProperty, place);
-
                 String city = propertyMap.get(cityProperty, String.class);
-
-                concertJSON.append(cityProperty, city);
 
                 String latitude = propertyMap.get(latitudeProperty, String.class);
 
-                concertJSON.append(latitudeProperty, latitude);
-
                 String longitude = propertyMap.get(longitudeProperty, String.class);
 
-                concertJSON.append(longitudeProperty, longitude);
+                Event event = new Event(id, date, place, city, latitude, longitude);
 
-                eventsJSON.put(concertJSON);
+                String eventJson = mapper.writeValueAsString(event);
+
+                eventsJSON.add(eventJson);
             }
             PrintWriter out = response.getWriter();
 
             out.write(eventsJSON.toString());
 
             out.flush();
-        } catch (IOException | JSONException e) {
+        } catch (IOException e) {
             LOGGER.error("Exception!", e);
         }
     }
