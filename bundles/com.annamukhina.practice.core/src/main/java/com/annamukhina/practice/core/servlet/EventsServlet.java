@@ -1,9 +1,11 @@
 package com.annamukhina.practice.core.servlet;
 
+import com.day.cq.commons.PathInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.felix.scr.annotations.sling.SlingServlet;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
+import org.apache.sling.api.request.RequestPathInfo;
 import org.apache.sling.api.resource.ModifiableValueMap;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -213,6 +215,7 @@ public class EventsServlet extends SlingAllMethodsServlet {
     private String getPathToPage(SlingHttpServletRequest request) throws MalformedURLException {
         URL url = new URL(request.getHeader("referer"));
         String path = url.getPath();
-        return path.replace(".html", "/");
+        PathInfo info = new PathInfo(path);
+        return info.getResourcePath() + "/";
     }
 }
